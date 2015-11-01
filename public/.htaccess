@@ -1,0 +1,36 @@
+AddDefaultCharset utf-8
+
+Options -Indexes
+Options +FollowSymlinks
+
+RewriteEngine on
+
+RewriteBase /
+
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^/?(.*) http://%1/$1 [L,R=301]
+
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^/?(.*) https://%1/$1 [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ index\.php [L]
+
+# Compressing
+<ifmodule mod_deflate.c="">
+    <filesmatch .(js|css|jpg|png|gif|ico|jpeg|pdf)$="">
+        SetOutputFilter DEFLATE
+    </filesmatch>
+</ifmodule>
+
+# Caching
+FileETag MTime Size
+<ifmodule mod_expires.c>
+    <filesmatch ".(jpg|jpeg|gif|png|css|js|ico|pdf)$">
+        ExpiresActive on
+        ExpiresDefault "modification plus 1 year"
+    </filesmatch>
+</ifmodule>
