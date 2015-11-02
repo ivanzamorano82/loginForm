@@ -1,2 +1,4 @@
 /vendor
 /public/error.log
+
+/templates/_cache
