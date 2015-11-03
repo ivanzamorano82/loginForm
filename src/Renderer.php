@@ -4,12 +4,12 @@ namespace App;
 
 
 /**
- * Describes view of application.
+ * Describes renderer of application.
  */
-interface View
+interface Renderer
 {
     /**
-     * Renders specified page and prints it immediately.
+     * Renders specified page.
      *
      * @param \App\Page $page
      */

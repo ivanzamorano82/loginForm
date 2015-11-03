@@ -1,35 +1,31 @@
 <?php
 
-namespace Support;
+namespace App;
 
 
 /**
- * Represents a HTTP requests router that performs support application
+ * Represents a HTTP requests router that performs application
  * pages dispatching.
  */
 class Router
 {
     /**
      * Contains all possible pages (and their properties)
-     * of support application.
+     * of application.
      *
      * @var array[]
      */
     protected $pages = [  // in alphabetic order
+        'api/signup' => ['render' => Page::AS_JSON],
         'index' => [],
-        'whyamihere' => ['auth' => Page::AUTH_YES],
+        'profile' => [],
         '404' => [
             'status' => 404,
             'auth' => Page::AUTH_NO,
         ],
         '500' => [
             'status' => 500,
-            'isHidden' => true,
             'auth' => Page::AUTH_NO,
-        ],
-        '@cleaning' => [
-            'noRendering' => true,
-            'forAdmin' => true,
         ],
     ];
 

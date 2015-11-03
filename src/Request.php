@@ -58,7 +58,7 @@ class Request
      */
     public function __construct() {
         $this->host = $_SERVER['HTTP_HOST'];
-        $this->page = self::parseUriPath($_SERVER['REQUEST_URI']);
+        $this->page = 'api/signup';//self::parseUriPath($_SERVER['REQUEST_URI']);
         $this->GET = new Params($_GET);
         $this->POST = new Params($_POST);
         $this->FILES = new Params($_FILES);

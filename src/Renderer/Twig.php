@@ -10,7 +10,7 @@ use \App\Conf;
  *
  * @implements \App\View
  */
-class Twig  implements \App\View
+class Twig  implements \App\Renderer
 {
     /**
      * Twig engine for rendering templates.
@@ -44,27 +44,17 @@ class Twig  implements \App\View
     }
 
     /**
-     * Renders specified page and prints it immediately.
+     * Renders specified page.
      * Sets HTTP status response code accordingly to code in passed page.
      *
      * @param \App\Page $page  Page to render.
      */
     public function renderPage($page)
     {
-        //if (isset($page->status)) {
-        //    http_response_code($page->status);
-        //}
-        //$template = 'pages/'.$page->alias.'.twig';
-        //echo $this->Twig->loadTemplate($template)->render($page->toRender);
-        $template = 'test.twig';
-        echo $this->Twig->loadTemplate($template)->render(['xxx' => 'эУРА']);
-    }
-
-    /**
-     * Flushes whole templates cache.
-     */
-    public function flushCache()
-    {
-        $this->Twig->clearCacheFiles();
+        if (isset($page->status)) {
+            http_response_code($page->status);
+        }
+        $template = 'pages/'.$page->alias.'.twig';
+        echo $this->Twig->loadTemplate($template)->render($page->toRender);
     }
 }

@@ -1,0 +1,71 @@
+{% extends 'models/main.twig' %}
+
+{% block content %}
+<div class="block-center">
+  <div class="form-wrapp">
+    <div class="tabs">
+      <a class="active-tab" href="javascript:void(0);" rel=".authorization">title_login</a>
+      <a href="javascript:void(0);" rel=".registration">title_registration</a>
+    </div>
+    <form method="post" action="index.php?route=login/login">
+      <fieldset class="authorization">
+        <div class="form_block">
+          <input name="login" data-valid="required" type="text"
+                 placeholder="Введите логин">
+        </div>
+        <div class="form_block">
+          <input name="pass" data-valid="required" type="password"
+                 placeholder="Введите пароль">
+        </div>
+        <input type="submit" value="button_login">
+      </fieldset>
+    </form>
+
+    <form method="post" action="/api/signup" enctype="multipart/form-data">
+      <fieldset class="registration">
+        <div class="form_block" id="photo" title="form_dz_title">
+          <div class="photo-wrapp" id="drop-zone">
+            <span class="vertical-center">drag_drop</span>
+          </div>
+        </div>
+
+        <div class="form_block">
+          <div class="element-wrapper error">
+            <input name="fio" data-valid="required|alpha|length(255)"
+                   type="text" placeholder="ФИО*">
+            <div class="error-message" data-trans="error_required">Обязательное поле для заполнения</div>
+          </div>
+          <div class="element-wrapper">
+            <input name="login" data-valid="required|length(255)"
+                   type="text" placeholder="Логин*">
+          </div>
+        </div>
+
+        <div class="form_block">
+          <span class="input">
+              <input name="phone" data-valid="phone" type="text" placeholder="">
+          </span>
+          <span class="input">
+              <input name="email" data-valid="required|email|length(255)" type="text"  placeholder="">
+
+          </span>
+        </div>
+
+        <div class="form_block">
+                           <span class="input">
+                              <input name="pass" data-valid="required|range(6,15)" type="password" placeholder="">
+
+                          </span>
+                          <span class="input">
+                              <input name="required|pass_match" data-valid="required|match(pass)" type="password" placeholder="">
+
+                          </span>
+
+        </div>
+
+        <input type="submit" value="button_registration">
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock content %}

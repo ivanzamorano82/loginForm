@@ -1,0 +1,36 @@
+/*CSS для контроллера index*/
+
+/*BEGIN: Download image block*/
+.photo-wrapp{
+    cursor: url('../../images/download_icon.png'), wait;
+}
+.photo-wrapp.error .error-message{
+    margin-top: 147px;
+    width: 211px;
+}
+.photo-wrapp:before{
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    content: "";
+    z-index: 100;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.photo-wrapp:hover:before, .photo-wrapp.hover:before{
+    background-color:rgba(255,0,0,0.2);
+    border: 1px dashed #000;
+}
+.photo-wrapp span{
+    color: #000;
+    font-size: 15px;
+}
+.photo-wrapp img{
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+/*END: Download image block*/

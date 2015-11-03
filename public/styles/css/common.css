@@ -1,0 +1,285 @@
+/*Общий CSS*/
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300);
+
+html, body, div, span, applet, object, iframe, table, caption, tbody, tfoot, thead, tr, th, td,
+del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+    vertical-align: baseline;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+:focus {
+    outline: 0;
+}
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+caption, th, td {
+    font-weight: normal;
+    text-align: left;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: "";
+}
+blockquote, q {
+    quotes: "" "";
+}
+body, html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    font: 14px/1.5 'Open Sans', 'Arial';
+    background-color: #142849;
+    background-image: -webkit-gradient(radial,center center,0,center center,460,from(#165387),to(#142849));
+    background-image: -webkit-radial-gradient(circle,#165387,#142849);
+    background-image: -moz-radial-gradient(circle,#165387,#142849);
+    background-image: -o-radial-gradient(circle,#165387,#142849);
+}
+body:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../../images/shine.png') center center no-repeat;
+    z-index: -1;
+}
+.block-center {
+    margin: auto;
+    display: table;
+    width: 640px;
+    height: 100%;
+}
+.form-wrapp {
+    display: table-cell;
+    vertical-align: middle;
+    width: 640px;
+    /*max-height: 540px;*/
+}
+
+fieldset {
+    position: relative;
+    padding: 20px;
+    border: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #fbfbfa;
+}
+.form_block {
+    display: inline-block;
+    vertical-align: top;
+    width: 49%;
+    margin: 10px 0;
+    text-align: center;
+}
+.form_block label {
+    /*float: left;*/
+}
+.form_block input {
+    display: inline-block;
+    position: relative;
+    width: 260px;
+    height: 45px;
+    font-size: 15px;
+    padding: 0 30px;
+    margin: 10px auto;
+    color: #616161;
+    background: #eee;
+    border: 1px solid #dbdbda;
+    /*-webkit-border-radius: 10px;*/
+    /*-moz-border-radius: 10px;*/
+    /*border-radius: 10px;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 13;
+}
+
+.form_block input:focus {
+    border-color: #9F3E7E;
+    transition: 500ms;
+}
+
+form input[type="submit"]{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    margin: auto;
+    background: #9f3e7e;
+    font-size: 17px;
+    width: 220px;
+    height: 46px;
+    border: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0 3px #85346a;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+}
+form input[type="submit"]:hover {
+    bottom: -21px;
+    box-shadow: 0 2px #85346a;
+}
+form input[type="submit"]:active {
+    bottom: -22px;
+    box-shadow: 0 1px #85346a;
+}
+
+/*BEGIN: Download image block*/
+.photo-wrapp {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    line-height: 140px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+    background: #eeeeee;
+    border: 1px dashed transparent;
+}
+
+.vertical-center {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+/*END: Download image block*/
+
+.tabs {
+    position: relative;
+    top: 10px;
+}
+.tabs a, .tabs h1 {
+    background: rgba(251,251,250, 0.3);
+    font-size: 22px;
+    display: inline-block;
+    width: 240px;
+    padding: 10px 0 20px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+.tabs a.active-tab, .tabs h1 {
+    background: #fbfbfa;
+    color: #154874;
+}
+.tabs h1 {
+    width: auto;
+    padding: 10px 30px 20px;
+}
+
+.authorization {
+    display: none;
+    padding: 60px 20px;
+}
+.registration {
+    /*display:none;*/
+    padding-bottom: 40px;
+}
+.element-wrapper {
+    position: relative;
+}
+.error-message {
+    position: absolute;
+    text-align: left;
+    background: #FFCAC5;
+    color: #A61212;
+    margin: -3px 0 0 0;
+    padding: 2px 10px 2px 10px;
+    width: 246px;
+    font-size: 13px;
+    line-height: 24px;
+    box-shadow: 0 4px 3px 0 #919191;
+    z-index: 155;
+}
+.error-message:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -8px;
+    left: 31px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 8px solid #FFCAC5;
+    z-index: 156;
+}
+.error input {
+    border-color: red;
+    transition: 500ms;
+}
+
+/*BEGIN: Download image block*/
+.photo-wrapp {
+    cursor: url('../../images/download_icon.png'), wait;
+}
+.photo-wrapp.error .error-message {
+    margin-top: 147px;
+    width: 211px;
+}
+.photo-wrapp:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    content: "";
+    z-index: 100;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.photo-wrapp:hover:before, .photo-wrapp.hover:before {
+    background-color:rgba(255,0,0,0.2);
+    border: 1px dashed #000;
+}
+.photo-wrapp span {
+    color: #000;
+    font-size: 15px;
+}
+.photo-wrapp img {
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+/*END: Download image block*/
+
+pre {
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 500;
+    border: 1px solid red;
+}
