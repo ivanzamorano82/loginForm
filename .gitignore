@@ -3,3 +3,5 @@
 
 /templates/_cache
 temp
+npm-debug.log
+public/bower_components

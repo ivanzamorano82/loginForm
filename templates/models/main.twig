@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="authApp">
 <head>
   <meta charset="UTF-8">
   <title>Главная страница</title>
+  <!-- including of style -->
   <link rel="stylesheet" href="styles/css/common.css" type="text/css"/>
+  <!-- including of favicon -->
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <!-- including of scripts -->
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="scripts/js/main.js"></script>
+  <script type="text/javascript" src="scripts/js/jquery.formValidate.js"></script>
 </head>
 <body>
   {% block content %}{% endblock %}

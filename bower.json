@@ -1,0 +1,12 @@
+{
+  "name": "lf2",
+  "version": "0.0.0",
+  "authors": [
+    "Ivan Zamorano <ivanzamorano82@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.4.x",
+    "jquery": "~2.1.1"
+  }
+}
