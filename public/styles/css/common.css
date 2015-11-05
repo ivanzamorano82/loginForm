@@ -208,20 +208,21 @@ form input[type="submit"]:active {
 .element-wrapper {
     position: relative;
 }
-.error-message {
+.error-block {
     position: absolute;
     text-align: left;
     background: #FFCAC5;
     color: #A61212;
     margin: -3px 0 0 0;
     padding: 2px 10px 2px 10px;
-    width: 246px;
     font-size: 13px;
     line-height: 24px;
     box-shadow: 0 4px 3px 0 #919191;
     z-index: 155;
+    white-space: nowrap;
+
 }
-.error-message:before {
+.error-block:before {
     content: '';
     display: block;
     position: absolute;
@@ -232,7 +233,7 @@ form input[type="submit"]:active {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-bottom: 8px solid #FFCAC5;
-    z-index: 156;
+    /*z-index: 156;*/
 }
 .error input {
     border-color: red;
@@ -243,7 +244,7 @@ form input[type="submit"]:active {
 .photo-wrapp {
     cursor: url('../../images/download_icon.png'), wait;
 }
-.photo-wrapp.error .error-message {
+.photo-wrapp.error .error-block {
     margin-top: 147px;
     width: 211px;
 }

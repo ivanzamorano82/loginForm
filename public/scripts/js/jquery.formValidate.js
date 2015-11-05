@@ -1,6 +1,19 @@
 (function($) {
 
     /**
+     * The class name of the element surrounding the form element.
+     *
+     * @type {string}
+     */
+    var classOfElementWrapper = 'element-wrapper';
+
+    /**
+     * The class name of error's block.
+     * @type {string}
+     */
+    var classOfErrorBlock = 'error-block';
+
+    /**
      * Performs Ajax post request with data from specified form
      * and processes response.
      *
@@ -118,7 +131,7 @@
          */
         var $closestFormGroup = form
             .find('[name^="'+fieldName+'"]')
-            .closest('.form-group');
+            .closest('.'+classOfElementWrapper);
 
         /**
          * Html block with class "error-block" in DOM that is inside of
@@ -128,7 +141,7 @@
          *
          * @access private
          */
-        var $errorBlock = $closestFormGroup.find('.error-block');
+        var $errorBlock = $closestFormGroup.find('.'+classOfErrorBlock);
 
         /**
          * Html template of error block.
@@ -147,12 +160,8 @@
          */
         this.setMessage = function(errorMessages) {
             this.errorHtmlBlock = '' +
-                '<div class="error-block">'+
-                    '<span class="error error-item">'+
-                        errorMessages.join('. ')+
-                    '</span>'+
-                    '<span class="glyphicon form-control-feedback ' +
-                                 'glyphicon-remove"></span>'+
+                '<div class="'+classOfErrorBlock+'">'+
+                    errorMessages.join('. ')+'.'+
                 '</div>';
         };
 
@@ -165,9 +174,7 @@
         this.remove = function() {
             if ($errorBlock.length) {
                 $errorBlock.remove();
-                $closestFormGroup
-                    .removeClass('has-feedback')
-                    .removeClass('has-error');
+                $closestFormGroup.removeClass('error');
             }
         };
 
@@ -186,9 +193,7 @@
             this.remove();
             $parentOfField
                 .append(this.errorHtmlBlock);
-            $closestFormGroup
-                .addClass('has-feedback')
-                .addClass('has-error');
+            $closestFormGroup.addClass('error');
         };
 
         /**
@@ -242,7 +247,7 @@
             alphabet: 'Поле должно содержать только {"0"} буквы',
             alphaNumeric: 'Поле должно содержать только {"0"} буквы либо цифры',
             numeric: 'Поле должно содержать только числа',
-            matchWith: 'Не совпадает с полем {0}',
+            matchWith: 'Не совпадает с полем {"0"}',
             length: 'Не более {0} символов',
             range: 'Диапазон от {0} до {1} символов',
             phone: 'Телефон имеет некорректный формат',
@@ -534,22 +539,14 @@
             /**
              * The event handler for hover on the error blocks.
              */
-            $(document).on('mouseenter', '.error-block', function() {
+            $(document).on('mouseenter', '.'+classOfErrorBlock, function() {
                 var $form = $(this).closest('form');
                 var $field = $(this)
-                    .closest('.form-group')
+                    .closest('.'+classOfElementWrapper)
                     .find('[name]')
                     .attr('name');
                 var EM = new ErrorMessage($form, $field);
                 EM.remove();
-                $(this).remove();
-            });
-
-            /**
-             * The event handler for hover on the common error on top.
-             */
-            $(document).on('mouseenter', '.error-ontop', function() {
-                $(this).remove();
             });
         };
 

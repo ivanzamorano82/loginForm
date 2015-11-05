@@ -4,8 +4,10 @@
 <div class="block-center" >
   <div class="form-wrapp">
     <div class="tabs">
-      <a class="active-tab" href="javascript:void(0);" rel=".authorization">title_login</a>
-      <a href="javascript:void(0);" rel=".registration">title_registration</a>
+      <a href="javascript:void(0);" rel=".authorization">title_login</a>
+      <a class="active-tab" href="javascript:void(0);" rel=".registration">
+        title_registration
+      </a>
     </div>
     <form method="post" action="index.php?route=login/login">
       <fieldset class="authorization">
@@ -21,8 +23,8 @@
       </fieldset>
     </form>
 
-    <form name="signUp" method="post" enctype="multipart/form-data"
-          ng-submit="doSignUp()" ng-controller="SignUpController">
+    <form id="signUp" action="/api/signUp"
+          method="post" enctype="multipart/form-data">
       <fieldset class="registration">
         <div class="form_block" id="photo" title="form_dz_title">
           <div class="photo-wrapp" id="drop-zone">
@@ -31,35 +33,31 @@
         </div>
 
         <div class="form_block">
-          <div class="element-wrapper error">
-            <input name="fio" data-valid="required|alpha|length(255)"
-                   type="text" placeholder="ФИО*" ng-model="fio"
-                   value="123412341234">
-            <div class="error-message">Обязательное поле для заполнения</div>
+          <div class="element-wrapper">
+            <input name="fio" type="text" placeholder="ФИО*">
           </div>
           <div class="element-wrapper">
-            <input name="login" data-valid="required|length(255)"
-                   type="text" placeholder="Логин*">
+            <input name="login" type="text" placeholder="Логин*">
           </div>
         </div>
 
         <div class="form_block">
-          <span class="input">
-              <input name="phone" data-valid="phone" type="text" placeholder="">
-          </span>
-          <span class="input">
-              <input name="email" data-valid="required|email|length(255)" type="text"  placeholder="">
-
-          </span>
+          <div class="element-wrapper">
+              <input name="phone" type="text" placeholder="Телефон">
+          </div>
+          <div class="element-wrapper">
+              <input name="email" type="text"  placeholder="Email*">
+          </div>
         </div>
 
         <div class="form_block">
-          <span class="input">
-              <input name="pass" data-valid="required|range(6,15)" type="password" placeholder="">
-          </span>
-          <span class="input">
-              <input name="required|pass_match" data-valid="required|match(pass)" type="password" placeholder="">
-          </span>
+          <div class="element-wrapper">
+              <input name="pass" type="password" placeholder="Пароль*">
+          </div>
+          <div class="element-wrapper">
+              <input name="repeat_pass" type="password"
+                     placeholder="Повторить пароль*">
+          </div>
         </div>
 
         <input type="submit" value="button_registration">
