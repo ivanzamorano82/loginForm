@@ -14,11 +14,11 @@ $(function() {
      * Initiates rules of validations for registration form.
      */
     $('#signUpForm').formValidate({
-        fio:   ['required', 'alphabet', 'length(10)'],
-        login: ['required', 'alphaNumeric(en)', 'length(10)'],
-        email: ['required', 'email', 'length(10)'],
-        pass: ['required', 'range(6,15)'],
-        repeat_pass: ['required', 'matchWith(pass)']
+        //fio:   ['required', 'alphabet', 'length(10)'],
+        //login: ['required', 'alphaNumeric(en)', 'length(10)'],
+        //email: ['required', 'email', 'length(10)'],
+        //pass: ['required', 'range(6,15)'],
+        //repeat_pass: ['required', 'matchWith(pass)']
     });
 
     /**
@@ -32,7 +32,7 @@ $(function() {
     /**
      * Initiates mask for phone input.
      */
-    $('input[name="phone"]').maskInput('+__(___)___-__-__');
+    //$('input[name="phone"]').maskInput('+__(___)___-__-__');
 
     /**
      * запрещаем драг & дроп в браузере
@@ -104,7 +104,7 @@ $(function() {
             EM.show(['Загружаемый файл не является изображением']);
             return false;
         }
-        else if (file.size > App.options.maxUploadSizeFile * 1024 * 1024) {
+        else if (false && file.size > App.options.maxUploadSizeFile * 1024 * 1024) {
             var mb = +App.options.maxUploadSizeFile;
             EM = new App.ErrorMessage($('#d_d'), 'error-block');
             EM.show(['Загружаемый файл превышает 2 MB']);

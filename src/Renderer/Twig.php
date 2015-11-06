@@ -29,18 +29,11 @@ class Twig  implements \App\Renderer
      * Creates new Twig view renderer.
      *
      * @param string $path      Path to directory which contains Twig templates.
-     * @param bool $autoReload  Whether to recompile templates if their
-     *                          original source was changed.
      */
-    public function __construct($path, $autoReload = false)
+    public function __construct($path)
     {
         $this->Twig = new \Twig_Environment(
-            new \Twig_Loader_Filesystem($path),
-            [
-                'cache' => $path.'/_cache',
-                'auto_reload' => $autoReload,
-                'debug' => Conf::$isDebugMode,
-            ]
+            new \Twig_Loader_Filesystem($path), ['debug' => Conf::$isDebugMode]
         );
         if (Conf::$isDebugMode) {
             $this->Twig->addGlobal('session', $_SESSION);

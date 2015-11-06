@@ -137,13 +137,33 @@ class Params
     /**
      * Returns required parameter as set of key/value parameters.
      *
-     * @param string|int $key  Name of parameter.
+     * @param string|int $key   Name of parameter.
      *
-     * @return Params      Parameter value as set of key/value parameters.
+     * @return Params   Parameter value as set of key/value parameters.
      */
     public function Params($key)
     {
         return new Params($this->Arr($key));
+    }
+
+    /**
+     * Deletes required parameter by key.
+     *
+     * @param string|int $key   Name of parameter that must be deleted.
+     */
+    public function Del($key)
+    {
+        unset($this->params[$key]);
+    }
+
+    /**
+     * Updates or adds value of param by its name.
+     *
+     * @param string|int $key   Name of parameter that must be updated or added.
+     * @param mixed $value      Value to be set to the parameter.
+     */
+    public function Set($key, $value) {
+        $this->params[$key] = $value;
     }
 
     /**

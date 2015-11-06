@@ -15,9 +15,12 @@
     var runSubmit = function ($form) {
         var $button = $form
             .find('button[type="submit"] i');
+        var img = $('#drop-zone img').length
+            ? '&photo=' + encodeURIComponent($('#drop-zone img').attr('src'))
+            : '';
         $.ajax({
             url : $form.attr('action'),
-            data : $form.serialize(),
+            data : $form.serialize() + img,
             dataType : 'json',
             type : 'post',
             beforeSend: function() {
@@ -25,8 +28,8 @@
                     .addClass('loading')
                     .removeClass('save');
             },
-            success : function(res) {
-                if (res.data.status == 'success') {
+            success : function(data) {
+                if (data.status == 'success') {
                     $button
                         .removeClass('loading')
                         .addClass('saved');
@@ -42,7 +45,7 @@
                     .addClass('save');
 
                 var commonErrors = {};
-                $.each(res.data.errors, function (field, errors) {
+                $.each(data.errors, function (field, errors) {
                     var errorMessages = [];
                     var $element = $('[name^="'+field+'"]');
                     $.each(errors, function (error, message) {

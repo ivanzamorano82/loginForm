@@ -117,7 +117,7 @@ fieldset {
     transition: 500ms;
 }
 
-form input[type="submit"]{
+form input[type="submit"], form button {
     position: absolute;
     left: 0;
     right: 0;
