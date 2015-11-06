@@ -23,11 +23,11 @@ class Conf
      */
     public static $MySQL = [
         'name' => [
-            'App' => '_App',
+            'lf' => 'login_form',
         ],
         'host' => 'localhost',
-        'user' => '',
-        'pass' => '',
+        'user' => 'root',
+        'pass' => 'root',
     ];
 
     /**

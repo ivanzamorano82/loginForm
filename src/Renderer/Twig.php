@@ -3,6 +3,7 @@
 namespace App\Renderer;
 
 use \App\Conf;
+use \App\Inject;
 
 
 /**
@@ -12,6 +13,10 @@ use \App\Conf;
  */
 class Twig  implements \App\Renderer
 {
+    use Inject\Repository\Translates;
+    use Inject\Current\Lang;
+
+
     /**
      * Twig engine for rendering templates.
      *
@@ -41,6 +46,14 @@ class Twig  implements \App\Renderer
             $this->Twig->addGlobal('session', $_SESSION);
             $this->Twig->addExtension(new \Twig_Extension_Debug());
         }
+        $this->Twig->addFunction(new \Twig_SimpleFunction('Lang',
+            function ($code) {
+                $this->initTranslatesRepo();
+                $this->initCurrentLang();
+                return $this->TranslatesRepo
+                    ->getTranslateByCode($code, $this->CurrentLang);
+            })
+        );
     }
 
     /**

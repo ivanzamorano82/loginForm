@@ -145,33 +145,6 @@ form input[type="submit"]:active {
     box-shadow: 0 1px #85346a;
 }
 
-/*BEGIN: Download image block*/
-.photo-wrapp {
-    position: relative;
-    width: 140px;
-    height: 140px;
-    line-height: 140px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin: 10px auto;
-    background: #eeeeee;
-    border: 1px dashed transparent;
-}
-
-.vertical-center {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    max-height: 100%;
-    max-width: 100%;
-}
-/*END: Download image block*/
-
 .tabs {
     position: relative;
     top: 10px;
@@ -208,7 +181,7 @@ form input[type="submit"]:active {
 .element-wrapper {
     position: relative;
 }
-.error-block {
+.error-block, .error-ontop span {
     position: absolute;
     text-align: left;
     background: #FFCAC5;
@@ -233,22 +206,43 @@ form input[type="submit"]:active {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-bottom: 8px solid #FFCAC5;
-    /*z-index: 156;*/
 }
 .error input {
     border-color: red;
     transition: 500ms;
 }
 
+.error-ontop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+    font-size: 15px;
+    width: 100%;
+    text-align: center;
+}
+.error-ontop span{
+    position: static;
+}
+
 /*BEGIN: Download image block*/
-.photo-wrapp {
+.photo-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    line-height: 140px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+    background: #eeeeee;
+    border: 1px dashed transparent;
     cursor: url('../../images/download_icon.png'), wait;
 }
-.photo-wrapp.error .error-block {
+.photo-wrapper .error-block {
     margin-top: 147px;
-    width: 211px;
 }
-.photo-wrapp:before {
+.photo-wrapper:before {
     position: absolute;
     display: block;
     top: 0;
@@ -261,15 +255,15 @@ form input[type="submit"]:active {
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
-.photo-wrapp:hover:before, .photo-wrapp.hover:before {
+.photo-wrapper:hover:before, .photo-wrapper.hover:before {
     background-color:rgba(255,0,0,0.2);
     border: 1px dashed #000;
 }
-.photo-wrapp span {
+.photo-wrapper span {
     color: #000;
     font-size: 15px;
 }
-.photo-wrapp img {
+.photo-wrapper img {
     border: 1px solid transparent;
     overflow: hidden;
 }
@@ -283,4 +277,16 @@ pre {
     background-color: #ffffff;
     z-index: 500;
     border: 1px solid red;
+}
+
+.vertical-center {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
 }

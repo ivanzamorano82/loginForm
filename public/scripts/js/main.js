@@ -1,11 +1,9 @@
 $(function() {
-    'use strict';
-
     /**
      * Переключение закладок регистрации и авторизации
      */
-    $('.tabs a').click(function(){
-        if(!$(this).is('.active_tab')){
+    $('.tabs a').click(function() {
+        if (!$(this).is('.active_tab')) {
             $(this).addClass('active-tab').siblings().removeClass('active-tab');
             var rel = $(this).attr('rel');
             $(rel).show().parent().siblings('form').find('fieldset').hide();
@@ -15,12 +13,20 @@ $(function() {
     /**
      * Initiates rules of validations for registration form.
      */
-    $('#signUp').formValidate({
+    $('#signUpForm').formValidate({
         fio:   ['required', 'alphabet', 'length(10)'],
         login: ['required', 'alphaNumeric(en)', 'length(10)'],
         email: ['required', 'email', 'length(10)'],
         pass: ['required', 'range(6,15)'],
         repeat_pass: ['required', 'matchWith(pass)']
+    });
+
+    /**
+     * Initiates rules of validations for login form.
+     */
+    $('#loginForm').formValidate({
+        login: ['required'],
+        pass: ['required']
     });
 
     /**
@@ -53,12 +59,12 @@ $(function() {
     /**
      * Объект дропзоны
      */
-    var dropzone = document.getElementById('drop-zone');
+    var dropZone = document.getElementById('drop-zone');
 
     /**
      * Обработчик дропзоны изображения
      */
-    dropzone.addEventListener('drop', function(evt){
+    dropZone.addEventListener('drop', function(evt) {
         var j = $(this);
         evt.stopPropagation();
         evt.preventDefault();
@@ -72,39 +78,43 @@ $(function() {
          * успешная загрузка изображения
          * @param event
          */
-        reader.onload = function(event){
+        reader.onload = function(event) {
 
             var image = event.target.result;
 
-            setTimeout(function(){
-                App.changeImage(j,image);
-            },500)
+            setTimeout(function() {
+                App.changeImage(j, image);
+            }, 500)
 
         };
 
         /**
          * Начало загрузки изображения
          */
-        reader.onloadstart = function(){
+        reader.onloadstart = function() {
             App.changeImage(j);
         };
 
         /**
          * Проверка типа загружаемого файла и допустимого размера
          */
-        if(file.type.split('/')[0] != 'image'){
-            ErrorNotification.show.call(j, 'filetype');
+        var EM;
+        if (file.type.split('/')[0] != 'image') {
+            EM = new App.ErrorMessage($('#d_d'), 'error-block');
+            EM.show(['Загружаемый файл не является изображением']);
             return false;
         }
-        else if(file.size > App.options.maxUploadSizeFile * 1024 * 1024){
+        else if (file.size > App.options.maxUploadSizeFile * 1024 * 1024) {
             var mb = +App.options.maxUploadSizeFile;
-            ErrorNotification.show.call(j, 'filesize', mb.toFixed(1));
+            EM = new App.ErrorMessage($('#d_d'), 'error-block');
+            EM.show(['Загружаемый файл превышает 2 MB']);
             return false;
         }
         else{
             reader.readAsDataURL(file);
         }
 
-    },false);
+    }, false);
 
+    App.getAllTranslates();
 });

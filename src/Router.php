@@ -17,6 +17,7 @@ class Router
      */
     protected $pages = [  // in alphabetic order
         'api/signup' => ['render' => Page::AS_JSON],
+        'api/getTranslates' => ['render' => Page::AS_JSON],
         'index' => [],
         'profile' => [],
         '404' => [

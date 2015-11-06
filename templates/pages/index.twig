@@ -4,63 +4,76 @@
 <div class="block-center" >
   <div class="form-wrapp">
     <div class="tabs">
-      <a href="javascript:void(0);" rel=".authorization">title_login</a>
+      <a href="javascript:void(0);" rel=".authorization">
+        {{ Lang('title_login') }}
+      </a>
       <a class="active-tab" href="javascript:void(0);" rel=".registration">
-        title_registration
+        {{ Lang('title_registration') }}
       </a>
     </div>
-    <form method="post" action="index.php?route=login/login">
+    <form id="loginForm" method="post" action="index.php?route=login/login">
       <fieldset class="authorization">
         <div class="form_block">
-          <input name="login" data-valid="required" type="text"
-                 placeholder="Введите логин">
+          <div class="element-wrapper">
+            <input name="login" type="text"
+                   placeholder="{{ Lang('form_login') }}*">
+          </div>
         </div>
         <div class="form_block">
-          <input name="pass" data-valid="required" type="password"
-                 placeholder="Введите пароль">
+          <div class="element-wrapper">
+            <input name="pass" type="password"
+                   placeholder="{{ Lang('form_pass') }}*">
+          </div>
         </div>
-        <input type="submit" value="button_login">
+        <input type="submit" value="{{ Lang('button_login') }}">
       </fieldset>
     </form>
 
-    <form id="signUp" action="/api/signUp"
+    <form id="signUpForm" action="/api/signUp"
           method="post" enctype="multipart/form-data">
       <fieldset class="registration">
-        <div class="form_block" id="photo" title="form_dz_title">
-          <div class="photo-wrapp" id="drop-zone">
-            <span class="vertical-center">drag_drop</span>
+        <div class="form_block" id="photo">
+          <div class="photo-wrapper" id="drop-zone">
+            <span id="d_d" class="vertical-center">
+              {{ Lang('drag_drop') }}
+            </span>
           </div>
         </div>
 
         <div class="form_block">
           <div class="element-wrapper">
-            <input name="fio" type="text" placeholder="ФИО*">
+            <input name="fio" type="text"
+                   placeholder="{{ Lang('form_name') }}*">
           </div>
           <div class="element-wrapper">
-            <input name="login" type="text" placeholder="Логин*">
-          </div>
-        </div>
-
-        <div class="form_block">
-          <div class="element-wrapper">
-              <input name="phone" type="text" placeholder="Телефон">
-          </div>
-          <div class="element-wrapper">
-              <input name="email" type="text"  placeholder="Email*">
+            <input name="login" type="text"
+                   placeholder="{{ Lang('form_login') }}*">
           </div>
         </div>
 
         <div class="form_block">
           <div class="element-wrapper">
-              <input name="pass" type="password" placeholder="Пароль*">
+              <input name="phone" type="text"
+                     placeholder="{{ Lang('form_phone') }}">
+          </div>
+          <div class="element-wrapper">
+              <input name="email" type="text"
+                     placeholder="{{ Lang('form_email') }}*">
+          </div>
+        </div>
+
+        <div class="form_block">
+          <div class="element-wrapper">
+              <input name="pass" type="password"
+                     placeholder="{{ Lang('form_pass') }}*">
           </div>
           <div class="element-wrapper">
               <input name="repeat_pass" type="password"
-                     placeholder="Повторить пароль*">
+                     placeholder="{{ Lang('form_repeat_pass') }}*">
           </div>
         </div>
 
-        <input type="submit" value="button_registration">
+        <input type="submit" value="{{ Lang('button_registration') }}">
       </fieldset>
     </form>
   </div>

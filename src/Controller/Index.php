@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Exception\Redirect;
-use App\Exception\UsePage;
+use \App\Inject;
 
 
 /**
@@ -14,12 +13,17 @@ use App\Exception\UsePage;
  */
 class Index implements \App\Controller
 {
+    use Inject\Repository\Translates;
+    use Inject\Current\Lang;
+
+
     /**
      * Creates new controller of "index" page and sets required dependency.
      */
     public function __construct()
     {
-        // Does nothing.
+        $this->initTranslatesRepo();
+        $this->initCurrentLang();
     }
 
     /**
@@ -27,12 +31,14 @@ class Index implements \App\Controller
      *
      * @param \App\Request $req  HTTP request to "index" page.
      *
+     * @todo   Allocate required translations for current page.
+     *
      * @return array   Parameters for page template rendering.
      */
     public function run($req)
     {
         return ['toRender' => [
-            'xxx' => 'index',
+            'tr' => $this->TranslatesRepo->getAllTranslates($this->CurrentLang),
         ]];
     }
 }

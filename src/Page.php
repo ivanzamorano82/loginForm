@@ -131,6 +131,10 @@ class Page
             //        }
             //    }
             //}
+            //if ($this->render != self::AS_NOTHING) {
+            //    $this->toRender =
+            //}
+
 
             $controllerName =
                 '\App\Controller\\'.$this->makeClassName($this->alias);

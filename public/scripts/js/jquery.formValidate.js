@@ -1,13 +1,6 @@
 (function($) {
 
     /**
-     * The class name of the element surrounding the form element.
-     *
-     * @type {string}
-     */
-    var classOfElementWrapper = 'element-wrapper';
-
-    /**
      * The class name of error's block.
      * @type {string}
      */
@@ -58,7 +51,9 @@
                     if ($element.length
                         && $element.attr('type') != 'hidden'
                     ) {
-                        var EM = new ErrorMessage($form, field);
+                        var EM = new App.ErrorMessage(
+                            $element, classOfErrorBlock
+                        );
                         EM.show(errorMessages);
                     } else {
                         commonErrors[field] = errorMessages;
@@ -66,7 +61,7 @@
                 });
 
                 if (!$.isEmptyObject(commonErrors)) {
-                    var EM = new ErrorMessage($form);
+                    var EM = new App.ErrorMessage();
                     EM.showOnTop(commonErrors);
                 }
             },
@@ -99,124 +94,6 @@
         return f + str.substr(1, str.length-1);
     };
 
-
-    /**
-     * Describes class that manipulates the output of error notification for
-     * specified form's element.
-     *
-     * @param form        Form that contain required elements.
-     * @param fieldName   Name of element that has error message.
-     *
-     * @constructor   Creates an instance of ErrorMessage.
-     */
-    var ErrorMessage = function(form, fieldName) {
-        /**
-         * Parent element of specified field.
-         *
-         * @type {Object}
-         *
-         * @access private
-         */
-        var $parentOfField = form.
-            find('[name^="'+fieldName+'"]')
-            .closest('div');
-
-        /**
-         * Closest html block with class "form-group" in DOM
-         * for specified field.
-         *
-         * @type {Object}
-         *
-         * @access private
-         */
-        var $closestFormGroup = form
-            .find('[name^="'+fieldName+'"]')
-            .closest('.'+classOfElementWrapper);
-
-        /**
-         * Html block with class "error-block" in DOM that is inside of
-         * closest "form-group" block.
-         *
-         * @type {Object}
-         *
-         * @access private
-         */
-        var $errorBlock = $closestFormGroup.find('.'+classOfErrorBlock);
-
-        /**
-         * Html template of error block.
-         *
-         * @type {string}
-         * @access public
-         */
-        this.errorHtmlBlock = '';
-
-        /**
-         * Generates html block with error messages for inserting into DOM.
-         *
-         * @param {string[]} errorMessages   List of error messages.
-         *
-         * @access public
-         */
-        this.setMessage = function(errorMessages) {
-            this.errorHtmlBlock = '' +
-                '<div class="'+classOfErrorBlock+'">'+
-                    errorMessages.join('. ')+'.'+
-                '</div>';
-        };
-
-        /**
-         * Removes current html element with error messages from the DOM
-         * if it exists.
-         *
-         * @access public
-         */
-        this.remove = function() {
-            if ($errorBlock.length) {
-                $errorBlock.remove();
-                $closestFormGroup.removeClass('error');
-            }
-        };
-
-        /**
-         * Inserts html block with passed error messages into DOM.
-         * And removes old block with error messages before inserting
-         * if it exists.
-         *
-         * @param {string[]} errorMessages   List of error messages for one
-         *                                   form field.
-         *
-         * @access public
-         */
-        this.show = function(errorMessages) {
-            this.setMessage(errorMessages);
-            this.remove();
-            $parentOfField
-                .append(this.errorHtmlBlock);
-            $closestFormGroup.addClass('error');
-        };
-
-        /**
-         * Inserts html block with passed common error messages into DOM and
-         * displays on the top of window.
-         * Removes old block with error messages before inserting.
-         *
-         * @param {{string[]}} commonErrors   List of common error messages for
-         *                                    hidden or nonexistent fields.
-         *
-         * @access public
-         */
-        this.showOnTop = function(commonErrors) {
-            var $errorBlock = '<div class="error-ontop">';
-            $.each(commonErrors, function (field, errors) {
-                $errorBlock += field+': '+errors.join('. ')+'<br>';
-            });
-            $errorBlock += '</div>';
-            $('.error-ontop').remove();
-            $('body').append($errorBlock);
-        }
-    };
-
     /**
      * Describes class that validates one field of form.
      *
@@ -242,7 +119,7 @@
          *
          * @access private
          */
-        var errorMessages = {  // TODO: must be moved in next task
+        var errorMessages = {
             required: 'Обязательное поле для заполнения',
             alphabet: 'Поле должно содержать только {"0"} буквы',
             alphaNumeric: 'Поле должно содержать только {"0"} буквы либо цифры',
@@ -268,6 +145,8 @@
         this.setErrorMessage = function(error, args, message) {
             if (message != undefined) {
                 errors.push(message);
+            } else if (message = App.getTranslate('error_'+error)) {
+                errors.push(sprintf(message, args));
             } else if (errorMessages[error] != undefined) {
                 errors.push(sprintf(errorMessages[error], args));
             }  else {
@@ -514,7 +393,9 @@
                     });
 
                     if (Validator.getErrors().length) {
-                        var EM = new ErrorMessage($form, fieldName);
+                        var EM = new App.ErrorMessage(
+                            $field, classOfErrorBlock
+                        );
                         EM.show(Validator.getErrors());
                         isAllRight = false;
                     }
@@ -530,9 +411,7 @@
              * The event handler for focus in the form's input.
              */
             $form.find('input').focus(function() {
-                var $form = $(this).closest('form');
-                var $field = $(this).attr('name');
-                var EM = new ErrorMessage($form, $field);
+                var EM = new App.ErrorMessage($(this), classOfErrorBlock);
                 EM.remove();
             });
 
@@ -540,13 +419,8 @@
              * The event handler for hover on the error blocks.
              */
             $(document).on('mouseenter', '.'+classOfErrorBlock, function() {
-                var $form = $(this).closest('form');
-                var $field = $(this)
-                    .closest('.'+classOfElementWrapper)
-                    .find('[name]')
-                    .attr('name');
-                var EM = new ErrorMessage($form, $field);
-                EM.remove();
+                $(this).parent().removeClass('error');
+                $(this).remove();
             });
         };
 
