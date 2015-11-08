@@ -19,6 +19,13 @@ $(function() {
         //email: ['required', 'email', 'length(10)'],
         //pass: ['required', 'range(6,15)'],
         //repeat_pass: ['required', 'matchWith(pass)']
+    }, {
+        photo: function() {
+            if (!$('#drop-zone img').length) {
+                return '';
+            }
+            return encodeURIComponent($('#drop-zone img').attr('src'));
+        }
     });
 
     /**

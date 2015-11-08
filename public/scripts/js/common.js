@@ -145,7 +145,7 @@ App.ErrorMessage = function(element, classOfErrorBlock) {
      * @access public
      */
     this.showOnTop = function(commonErrors) {
-        var $errorBlock = '<div class="error-ontop"><span>';
+        var $errorBlock = '<div class="error-ontop error-block"><span>';
         $.each(commonErrors, function (field, errors) {
             $errorBlock += field+': '+errors.join('. ')+'<br>';
         });

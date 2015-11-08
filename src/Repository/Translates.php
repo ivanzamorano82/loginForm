@@ -37,10 +37,10 @@ class Translates
     public function getAllTranslates($lang)
     {
         $sql = "SELECT `w`.`key`,`t`.`value` ".
-               "FROM ".DB::TBL_WORDS." `w` ".
-               "INNER JOIN ".DB::TBL_TRANSLATES." `t` ".
+               "FROM `".DB::TBL_WORDS."` `w` ".
+               "INNER JOIN `".DB::TBL_TRANSLATES."` `t` ".
                      "ON `w`.`id`=`t`.`word_id` ".
-               "INNER JOIN ".DB::TBL_LANGS." `l` ".
+               "INNER JOIN `".DB::TBL_LANGS."` `l` ".
                      "ON `t`.`lang_id`=`l`.`id` AND `l`.`code`=?";
         $st = $this->MySQL->getConn()->prepare($sql);
         $st->execute([$lang]);

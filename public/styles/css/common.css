@@ -181,7 +181,7 @@ form input[type="submit"]:active {
 .element-wrapper {
     position: relative;
 }
-.error-block, .error-ontop span {
+form .error-block, .error-ontop span {
     position: absolute;
     text-align: left;
     background: #FFCAC5;
@@ -195,7 +195,7 @@ form input[type="submit"]:active {
     white-space: nowrap;
 
 }
-.error-block:before {
+form .error-block:before {
     content: '';
     display: block;
     position: absolute;

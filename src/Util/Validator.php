@@ -427,6 +427,9 @@ class Validator
      */
     public function isFileSizeB64($file, $arguments = [])
     {
+        if (empty($file)) {
+            return true;
+        }
         $file = explode(';base64,', $file);
         $fileInfo  = $file[0];
         $fileData = $file[1];

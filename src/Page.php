@@ -157,6 +157,9 @@ class Page
                 }
             }
         } catch (\Exception $e) {
+            if (Conf::$isDebugMode) {
+                throw $e;
+            }
             return self::create('500')->process();
         }
 

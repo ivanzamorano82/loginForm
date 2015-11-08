@@ -10,17 +10,15 @@
      * Performs Ajax post request with data from specified form
      * and processes response.
      *
-     * @param {jQuery} $form  Specified form element.
+     * @param {Object} $form                   Specified form element.
+     * @param {string} additionalQueryString   Optional additional query string.
      */
-    var runSubmit = function ($form) {
+    var runSubmit = function ($form, additionalQueryString) {
         var $button = $form
             .find('button[type="submit"] i');
-        var img = $('#drop-zone img').length
-            ? '&photo=' + encodeURIComponent($('#drop-zone img').attr('src'))
-            : '';
         $.ajax({
             url : $form.attr('action'),
-            data : $form.serialize() + img,
+            data : $form.serialize() + additionalQueryString,
             dataType : 'json',
             type : 'post',
             beforeSend: function() {
@@ -345,11 +343,15 @@
      * @external "jQuery.fn"
      * @see {@link http://learn.jquery.com/plugins/|jQuery Plugins}
      *
+     * @param options          Options that describes rules of validation.
+     * @param additionalData   Optional additional data for request to the
+     *                         server.
+     *
      * @returns {*}
      */
-    $.fn.formValidate = function(options) {
+    $.fn.formValidate = function(options, additionalData) {
         options = (options != undefined) ? options : {};
-
+        additionalData = (additionalData != undefined) ? additionalData : {};
         /**
          * Add event handlers for all matched forms in the DOM.
          */
@@ -405,7 +407,16 @@
                 });
 
                 if (isAllRight) {
-                    runSubmit($form);
+                    var additionalQueryString = '';
+                    $.each(additionalData, function(key, value) {
+                        if (typeof value == 'function') {
+                            additionalQueryString += '&'+key+'='+value();
+                        } else {
+                            additionalQueryString += '&'+key+'='+value;
+                        }
+
+                    });
+                    runSubmit($form, additionalQueryString);
                 }
                 return false;
             });
