@@ -19,7 +19,7 @@ date_default_timezone_set('Etc/UTC');
 /** Absolute path to project root. */
 define('PROJECT_ROOT', dirname(__DIR__));
 /** Absolute path to folder for downloaded files. */
-define('DOWNLOAD_FOLDER', PROJECT_ROOT.'/download/');
+define('DOWNLOAD_FOLDER', PROJECT_ROOT.'/public/downloads/');
 /** Absolute path to folder for downloaded files for registered users. */
 define('USERS_FOLDER', DOWNLOAD_FOLDER.'/users/');
 /** Relative url to downloaded  images */

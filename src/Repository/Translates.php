@@ -73,4 +73,36 @@ class Translates
         $r = $st->fetchColumn();
         return !empty($r) ? $r : '';
     }
+
+    /**
+     * Get translates by prefix of word from repository.
+     *
+     * @param string $lang          Language of required translate.
+     * @param string $prefix        Prefix for key of word.
+     * @param bool $excludePrefix   Exclude prefix from result's key list
+     *                              or not.
+     *
+*@return array
+     */
+    public function getTranslatesByPrefix($lang, $prefix, $excludePrefix = true)
+    {
+        $sql = "SELECT `w`.`key`,`t`.`value` ".
+               "FROM `".DB::TBL_WORDS."` `w` ".
+               "INNER JOIN `".DB::TBL_TRANSLATES."` `t` ".
+                     "ON `w`.`id`=`t`.`word_id` ".
+               "INNER JOIN `".DB::TBL_LANGS."` `l` ".
+                     "ON `t`.`lang_id`=`l`.`id` AND `l`.`code`=? ".
+               "WHERE w.key like CONCAT(?,'%')";
+        $st = $this->MySQL->getConn()->prepare($sql);
+        $st->execute([$lang, $prefix]);
+        $out = [];
+        while ($r = $st->fetch()) {
+            $key  = $excludePrefix
+                ? str_replace($prefix, '', $r['key'])
+                : $r['key'];
+            $out[$key] = $r['value'];
+
+        }
+        return $out;
+    }
 }

@@ -2,12 +2,17 @@
 
 namespace App\Util;
 
+use \App\Inject;
 
 /**
  * Describes class that validates specified params.
  */
 class Validator
 {
+    use Inject\Repository\Translates;
+    use Inject\Current\Lang;
+
+
     /**
      * Params that must be validated.
      *
@@ -80,6 +85,7 @@ class Validator
             $this->rules = $rules;
         }
         $this->params = $params;
+        $this->prepareErrorMessages();
     }
 
     /**
@@ -93,6 +99,16 @@ class Validator
     }
 
     /**
+     * Return files prepared for downloading.
+     *
+     * @return array
+     */
+    public function getDownloadFiles()
+    {
+        return $this->files;
+    }
+
+    /**
      * Returns error message by its error code.
      *
      * @param string $error   Error code corresponding to key of passed param.
@@ -102,7 +118,21 @@ class Validator
     public function getErrorMessage($error)
     {
         return isset($this->errorMessages[$error])
-            ? $this->errorMessages[$error] : 'Неизвестная ошибка';
+            ? $this->errorMessages[$error] : 'Unknown error';
+    }
+
+    /**
+     * Prepares list of error messages mapping by error code.
+     */
+    private function prepareErrorMessages()
+    {
+        $this->initTranslatesRepo();
+        $this->initCurrentLang();
+        $this->errorMessages = array_merge(
+            $this->errorMessages,
+            $this->TranslatesRepo
+                ->getTranslatesByPrefix($this->CurrentLang, 'error_')
+        );
     }
 
     /**
@@ -191,11 +221,13 @@ class Validator
                             );
                         }
                     } else {
-                        $this->errors[$field][$rule] = 'Неверный валидатор';  // TODO: error code needed
+                        $this->errors[$field][$rule]
+                            = $this->getErrorMessage('unknownvalidator');
                     }
                 }
             } else {
-                $this->errors[$field]['common'] = 'Недопустимое поле';  // TODO: error code needed
+                $this->errors[$field]['common']
+                    = $this->getErrorMessage('common');
             }
         }
         return !$this->hasErrors();

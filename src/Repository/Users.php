@@ -42,11 +42,8 @@ class Users
                     `email`=?, `pass`=?";
         $st = $conn->prepare($sql);
         $st->execute([
-            $user->fio,
-            $user->login,
-            $user->phone,
-            $user->email,
-            $user->pass,
+            $user->fio, $user->login, $user->phone,
+            $user->email, $user->pass,
         ]);
         $user->id = $conn->lastInsertId();
     }

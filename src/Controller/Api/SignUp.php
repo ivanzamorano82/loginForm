@@ -23,11 +23,11 @@ class SignUp implements \App\Controller
      * @var array
      */
     public $rules = [
-        'fio' => ['required', 'alphabet', 'length(10)'],
+        'fio' => ['required', 'alphabet', 'length(30)'],
         'login' => [
-            'required', 'alphaNumeric(en)', 'length(10)', 'availableLogin',
+            'required', 'alphaNumeric(en)', 'length(20)', 'availableLogin',
         ],
-        'email' => ['required', 'email', 'length(10)', 'availableEmail'],
+        'email' => ['required', 'email', 'length(100)', 'availableEmail'],
         'pass' => ['required', 'range(6,15)'],
         'repeat_pass' => ['required', 'matchWith(pass)'],
         'phone' => ['phone'],
@@ -56,11 +56,11 @@ class SignUp implements \App\Controller
 
         $validator->addCheckMethod('availableLogin', function ($login) {
             return !$this->UsersRepo->getUserIdByLogin($login);
-        }, 'Такой логин уже существует');
+        });
 
         $validator->addCheckMethod('availableEmail', function ($email) {
             return !$this->UsersRepo->getUserIdByEmail($email);
-        }, 'Такой email уже существует');
+        });
 
         if ($result = $validator->check()) {
             $user = new Model\User();
@@ -71,6 +71,8 @@ class SignUp implements \App\Controller
             $user->pass = $user->hashPassword($req->POST->String('pass'));
 
             $this->UsersRepo->addNewUser($user);
+
+            $this->downloadFiles($validator->getDownloadFiles());
         }
 
         return ['toRender' => [
@@ -79,5 +81,23 @@ class SignUp implements \App\Controller
             'post' => $req->POST->getAll(),
             'addedUserId' => isset($user) ? $user->id : null,
         ]];
+    }
+
+    /**
+     * Downloads files prepared for downloading in base64 format and saves
+     * into storage place.
+     *
+     * @param array $files   List of required files.
+     *
+     * @todo Make image resizing to required sizes.
+     */
+    private function downloadFiles($files){
+        foreach ($files as $file) {
+            if (isset($file)){
+                file_put_contents(
+                    USERS_FOLDER.$file['file_name'], $file['data']
+                );
+            }
+        }
     }
 }

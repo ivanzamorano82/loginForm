@@ -14,11 +14,11 @@ $(function() {
      * Initiates rules of validations for registration form.
      */
     $('#signUpForm').formValidate({
-        //fio:   ['required', 'alphabet', 'length(10)'],
-        //login: ['required', 'alphaNumeric(en)', 'length(10)'],
-        //email: ['required', 'email', 'length(10)'],
-        //pass: ['required', 'range(6,15)'],
-        //repeat_pass: ['required', 'matchWith(pass)']
+        fio:   ['required', 'alphabet', 'length(30)'],
+        login: ['required', 'alphaNumeric(en)', 'length(20)'],
+        email: ['required', 'email', 'length(100)'],
+        pass: ['required', 'range(6,15)'],
+        repeat_pass: ['required', 'matchWith(pass)']
     }, {
         photo: function() {
             if (!$('#drop-zone img').length) {
