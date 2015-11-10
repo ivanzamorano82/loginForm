@@ -12,6 +12,7 @@ $(function() {
 
     /**
      * Initiates rules of validations for registration form.
+     * And adds additional field "photo" in post.
      */
     $('#signUpForm').formValidate({
         fio:   ['required', 'alphabet', 'length(30)'],
@@ -21,10 +22,11 @@ $(function() {
         repeat_pass: ['required', 'matchWith(pass)']
     }, {
         photo: function() {
-            if (!$('#drop-zone img').length) {
+            var $dz = $('#drop-zone img');
+            if (!$dz.length) {
                 return '';
             }
-            return encodeURIComponent($('#drop-zone img').attr('src'));
+            return encodeURIComponent($dz.attr('src'));
         }
     });
 
@@ -39,7 +41,7 @@ $(function() {
     /**
      * Initiates mask for phone input.
      */
-    //$('input[name="phone"]').maskInput('+__(___)___-__-__');
+    $('input[name="phone"]').maskInput('+__(___)___-__-__');
 
     /**
      * запрещаем драг & дроп в браузере

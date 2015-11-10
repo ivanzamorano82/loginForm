@@ -29,9 +29,9 @@ App.changeImage = function (j, image) {
 
 App.getAllTranslates = function() {
     $.ajax({
-        url : '/api/getTranslates',
+        url : '/api/get.translates',
         dataType : 'json',
-        type : 'post',
+        type : 'get',
         success : function(data) {
             App.translates = data;
         }

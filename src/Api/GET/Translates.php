@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Api\GET;
 
 use \App\Inject;
 
@@ -10,7 +10,7 @@ use \App\Inject;
  *
  * @implements \App\Controller
  */
-class GetTranslates implements \App\Controller
+class Translates implements \App\Controller
 {
     use Inject\Repository\Translates;
     use Inject\Current\Lang;

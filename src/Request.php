@@ -52,6 +52,13 @@ class Request
      */
     public $FILES;
 
+    /**
+     * Method of request.
+     *
+     * @var string
+     */
+    public $method;
+
 
     /**
      * Creates new application HTTP request.
@@ -63,6 +70,7 @@ class Request
         $this->POST = new Params($_POST);
         $this->FILES = new Params($_FILES);
         $this->IP = $_SERVER['REMOTE_ADDR'];
+        $this->method = $_SERVER['REQUEST_METHOD'];
     }
 
     /**

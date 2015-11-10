@@ -38,41 +38,43 @@ class Users
     {
         $conn = $this->MySQL->getConn();
         $sql = "INSERT INTO `".DB::TBL_USERS."` ".
-               "SET `fio`=?,`login`=?,`phone`=?,
-                    `email`=?, `pass`=?";
+               "SET `fio`=?,`login`=?,`loginHash`=?,`phone`=?,
+                    `email`=?, `emailHash`=?,`pass`=?,`photo`=?";
         $st = $conn->prepare($sql);
         $st->execute([
-            $user->fio, $user->login, $user->phone,
-            $user->email, $user->pass,
+            $user->fio, $user->login, $user->loginHash, $user->phone,
+            $user->email, $user->emailHash, $user->pass, $user->photo
         ]);
         $user->id = $conn->lastInsertId();
     }
 
     /**
-     * Checks for existing of user by given login.
+     * Checks for existing of user by given login hash.
      *
-     * @param string $login   Login by which the user searched.
+     * @param string $loginHash   Login hash by which the user searched.
      *
      * @return bool   ID of required user if it exists.
      */
-    public function getUserIdByLogin($login){
-        $sql = "SELECT `id` FROM `".DB::TBL_USERS."` WHERE `login`=? LIMIT 1";
+    public function getUserIdByLoginHash($loginHash){
+        $sql = "SELECT `id` FROM `".DB::TBL_USERS."` ".
+               "WHERE `loginHash`=? LIMIT 1";
         $st = $this->MySQL->getConn()->prepare($sql);
-        $st->execute([$login]);
+        $st->execute([$loginHash]);
         return $st->fetchColumn();
     }
 
     /**
-     * Checks for existing of user by given email.
+     * Checks for existing of user by given email hash.
      *
-     * @param string $email   Email by witch the user searched.
+     * @param string $emailHash   Email hash by witch the user searched.
      *
      * @return bool   ID of required user if it exists.
      */
-    public function getUserIdByEmail($email){
-        $sql = "SELECT `id` FROM `".DB::TBL_USERS."` WHERE `email`=? LIMIT 1";
+    public function getUserIdByEmailHash($emailHash){
+        $sql = "SELECT `id` FROM `".DB::TBL_USERS."` ".
+               "WHERE `emailHash`=? LIMIT 1";
         $st = $this->MySQL->getConn()->prepare($sql);
-        $st->execute([$email]);
+        $st->execute([$emailHash]);
         return $st->fetchColumn();
     }
 }

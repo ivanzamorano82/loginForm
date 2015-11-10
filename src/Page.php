@@ -59,6 +59,14 @@ class Page
     public $auth = self::AUTH_REQUIRED;
 
     /**
+     * Defines handler of page. If it is true than runs REST API methods,
+     * otherwise runs corresponding controller.
+     *
+     * @var bool
+     */
+    public $api = false;
+
+    /**
      * Parameters that are required for page rendering.
      *
      * @var array
@@ -83,7 +91,7 @@ class Page
     {
         $this->alias = $alias;
         foreach([
-            'status', 'render', 'auth', 'params',
+            'status', 'render', 'auth', 'api', 'params',
         ] as $field) {
             if (isset($props[$field])) {
                 $this->{$field} = $props[$field];
@@ -135,9 +143,11 @@ class Page
             //    $this->toRender =
             //}
 
-
-            $controllerName =
-                '\App\Controller\\'.$this->makeClassName($this->alias);
+            $namespace = $this->api
+                ? '\App\Api\\'.$req->method.'\\'
+                : '\App\Controller\\';
+            $controllerName = $namespace.
+                              $this->makeClassName($this->alias, $this->api);
             if (class_exists($controllerName)) {
                 /** @var Controller $controller */
                 $controller = new $controllerName($this);
@@ -166,13 +176,19 @@ class Page
         return $this;
     }
 
-    private function makeClassName($alias)
+    private function makeClassName($alias, $api = false)
     {
-        $parts = explode('/', trim($alias, '/'));
-        $newParts = [];
-        foreach ($parts as $part) {
-            $newParts[] = ucfirst($part);
+        if (!$api) {
+            $parts = explode('/', trim($alias, '/'));
+            $newParts = [];
+            foreach ($parts as $part) {
+                $newParts[] = ucfirst($part);
+            }
+            return implode('\\', $newParts);
+        } else {
+            preg_match('/\.(\w+)$/', $alias, $matches);
+            return ucfirst($matches[1]);
         }
-        return implode('\\', $newParts);
+
     }
 }

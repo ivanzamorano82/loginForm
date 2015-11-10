@@ -15,10 +15,11 @@ class Application
      */
     public function run(){
         $request = new Request();
-        //var_dump($request);
+        //print_r($request);
+        //print_r($_SERVER);
         $page = Page::create($request->page);
         $page = $page->process($request);
-        //var_dump($page);
+        //print_r($page);
         if ($page->render == Page::AS_HTML) {
             $this->initHtmlRenderer();
             $this->HtmlRenderer->renderPage($page);

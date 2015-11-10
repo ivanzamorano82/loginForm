@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller\Api;
+namespace App\Api\POST;
 
 use App\Inject;
 use App\Model;
+use App\Util\StringEncryption;
 use App\Util\Validator;
 
 
@@ -55,24 +56,35 @@ class SignUp implements \App\Controller
         $validator = new Validator($this->rules, $req->POST);
 
         $validator->addCheckMethod('availableLogin', function ($login) {
-            return !$this->UsersRepo->getUserIdByLogin($login);
+            return !$this->UsersRepo->getUserIdByLoginHash(
+                StringEncryption::hashString($login)
+            );
         });
 
         $validator->addCheckMethod('availableEmail', function ($email) {
-            return !$this->UsersRepo->getUserIdByEmail($email);
+            return !$this->UsersRepo->getUserIdByEmailHash(
+                StringEncryption::hashString($email)
+            );
         });
 
         if ($result = $validator->check()) {
             $user = new Model\User();
-            $user->fio = $req->POST->String('fio');
-            $user->login = $req->POST->String('login');
-            $user->email = $req->POST->String('email');
-            $user->phone = $req->POST->String('phone');
-            $user->pass = $user->hashPassword($req->POST->String('pass'));
+
+            $files = $validator->getDownloadFiles();
+
+            $user->create(
+                $req->POST->String('login'),
+                $req->POST->String('email'),
+                $req->POST->String('pass'),
+                $req->POST->String('fio'),
+                $req->POST->String('phone'),
+                isset($files[0]['file_name']) ? $files[0]['file_name'] : null
+            );
 
             $this->UsersRepo->addNewUser($user);
-
-            $this->downloadFiles($validator->getDownloadFiles());
+            if (!empty($files)) {
+                $this->downloadFiles($files);
+            }
         }
 
         return ['toRender' => [
@@ -93,7 +105,7 @@ class SignUp implements \App\Controller
      */
     private function downloadFiles($files){
         foreach ($files as $file) {
-            if (isset($file)){
+            if (isset($file)) {
                 file_put_contents(
                     USERS_FOLDER.$file['file_name'], $file['data']
                 );
