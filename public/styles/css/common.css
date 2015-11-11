@@ -92,7 +92,7 @@ fieldset {
 .form_block label {
     /*float: left;*/
 }
-.form_block input {
+.form_block input, .form_block p {
     display: inline-block;
     position: relative;
     width: 260px;
@@ -103,9 +103,6 @@ fieldset {
     color: #616161;
     background: #eee;
     border: 1px solid #dbdbda;
-    /*-webkit-border-radius: 10px;*/
-    /*-moz-border-radius: 10px;*/
-    /*border-radius: 10px;*/
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -115,6 +112,12 @@ fieldset {
 .form_block input:focus {
     border-color: #9F3E7E;
     transition: 500ms;
+}
+
+.form_block p {
+    font-size: 14px;
+    color: red;
+    margin-top: 10px;
 }
 
 form input[type="submit"], form button {
@@ -170,7 +173,7 @@ form input[type="submit"]:active {
     padding: 10px 30px 20px;
 }
 
-.authorization {
+.authorization, .restore {
     display: none;
     padding: 60px 20px;
 }
@@ -178,6 +181,7 @@ form input[type="submit"]:active {
     /*display:none;*/
     padding-bottom: 40px;
 }
+
 .element-wrapper {
     position: relative;
 }
