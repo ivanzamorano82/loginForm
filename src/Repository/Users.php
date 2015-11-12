@@ -55,7 +55,8 @@ class Users
      *
      * @return bool   ID of required user if it exists.
      */
-    public function getUserIdByLoginHash($loginHash){
+    public function getUserIdByLoginHash($loginHash)
+    {
         $sql = "SELECT `id` FROM `".DB::TBL_USERS."` ".
                "WHERE `loginHash`=? LIMIT 1";
         $st = $this->MySQL->getConn()->prepare($sql);
@@ -70,7 +71,8 @@ class Users
      *
      * @return bool   ID of required user if it exists.
      */
-    public function getUserIdByEmailHash($emailHash){
+    public function getUserIdByEmailHash($emailHash)
+    {
         $sql = "SELECT `id` FROM `".DB::TBL_USERS."` ".
                "WHERE `emailHash`=? LIMIT 1";
         $st = $this->MySQL->getConn()->prepare($sql);

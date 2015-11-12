@@ -11,38 +11,41 @@
         {{ Lang('title_registration') }}
       </a>
     </div>
-    <div class="xxx">
-      <form id="loginForm" method="post" action="index.php?route=login/login">
-        <fieldset class="authorization">
-          <div class="form_block">
-            <div class="element-wrapper">
-              <input name="login" type="text"
-                     placeholder="{{ Lang('form_login') }}*">
-            </div>
-          </div>
-          <div class="form_block">
-            <div class="element-wrapper">
-              <input name="pass" type="password"
-                     placeholder="{{ Lang('form_pass') }}*">
-            </div>
-          </div>
-          <input type="submit" value="{{ Lang('button_login') }}">
-        </fieldset>
-      </form>
-    </div>
 
-    <form>
-      <fieldset class="restore">
+    <form id="loginForm" method="post" action="api/post.login">
+      <fieldset class="authorization">
         <div class="form_block">
           <div class="element-wrapper">
             <input name="login" type="text"
                    placeholder="{{ Lang('form_login') }}*">
           </div>
+          <a id="fp_button" href="javascript:void(0)">Забыли пароль?</a>
         </div>
         <div class="form_block">
-          <p>Для востановления пароля введите свой login!</p>
+          <div class="element-wrapper">
+            <input name="pass" type="password"
+                   placeholder="{{ Lang('form_pass') }}*">
+          </div>
         </div>
         <input type="submit" value="{{ Lang('button_login') }}">
+      </fieldset>
+    </form>
+
+    <form id="restoreForm" method="post" action="#">
+      <fieldset class="restore">
+        <div class="form_block">
+          <div class="element-wrapper">
+            <input name="email" type="text"
+                   placeholder="{{ Lang('form_email') }}*">
+          </div>
+          <a id="back_login" href="javascript:void(0)">
+            {{ Lang('link_back') }}
+          </a>
+        </div>
+        <div class="form_block">
+          <p>{{ Lang('text_restore') }}</p>
+        </div>
+        <input type="submit" value="{{ Lang('button_restore') }}">
       </fieldset>
     </form>
 

@@ -9,17 +9,27 @@ $(function() {
             $(rel).show().parent().siblings('form').find('fieldset').hide();
         }
     });
+    
+    $('#fp_button').click(function() {
+        $('.authorization').hide();
+        $('.restore').show();
+    });
+
+    $('#back_login').click(function() {
+        $('.restore').hide();
+        $('.authorization').show();
+    });
 
     /**
      * Initiates rules of validations for registration form.
      * And adds additional field "photo" in post.
      */
     $('#signUpForm').formValidate({
-        fio:   ['required', 'alphabet', 'length(30)'],
-        login: ['required', 'alphaNumeric(en)', 'length(20)'],
-        email: ['required', 'email', 'length(100)'],
-        pass: ['required', 'range(6,15)'],
-        repeat_pass: ['required', 'matchWith(pass)']
+        //fio:   ['required', 'alphabet', 'length(30)'],
+        //login: ['required', 'alphaNumeric(en)', 'length(20)'],
+        //email: ['required', 'email', 'length(100)'],
+        //pass: ['required', 'range(6,15)'],
+        //repeat_pass: ['required', 'matchWith(pass)']
     }, {
         photo: function() {
             var $dz = $('#drop-zone img');
@@ -34,8 +44,8 @@ $(function() {
      * Initiates rules of validations for login form.
      */
     $('#loginForm').formValidate({
-        login: ['required'],
-        pass: ['required']
+        //login: ['required'],
+        //pass: ['required']
     });
 
     /**

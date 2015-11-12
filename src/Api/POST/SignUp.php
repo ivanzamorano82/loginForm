@@ -2,10 +2,11 @@
 
 namespace App\Api\POST;
 
-use App\Inject;
-use App\Model;
-use App\Util\StringEncryption;
-use App\Util\Validator;
+use \App\Inject;
+use \App\Model;
+use \App\Util;
+use \App\Util\StringEncryption;
+use \App\Util\Validator;
 
 
 /**
@@ -16,6 +17,7 @@ use App\Util\Validator;
 class SignUp implements \App\Controller
 {
     use Inject\Repository\Users;
+    use Util\JsonResults;
 
 
     /**
@@ -67,7 +69,7 @@ class SignUp implements \App\Controller
             );
         });
 
-        if ($result = $validator->check()) {
+        if ($validator->check()) {
             $user = new Model\User();
 
             $files = $validator->getDownloadFiles();
@@ -85,14 +87,16 @@ class SignUp implements \App\Controller
             if (!empty($files)) {
                 $this->downloadFiles($files);
             }
+
+            return $this->success([
+                'post' => $req->POST->getAll(),
+                'addedUserId' => $user,
+            ]);
         }
 
-        return ['toRender' => [
-            'status' => $result ? 'success' : 'failure',
-            'errors' => $validator->getErrors(),
+        return $this->error($validator->getErrors(),[
             'post' => $req->POST->getAll(),
-            'addedUserId' => isset($user) ? $user->id : null,
-        ]];
+        ]);
     }
 
     /**
