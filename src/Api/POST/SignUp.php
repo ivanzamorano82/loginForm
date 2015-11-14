@@ -2,6 +2,7 @@
 
 namespace App\Api\POST;
 
+use App\Exception\UsePage;
 use \App\Inject;
 use \App\Model;
 use \App\Util;
@@ -83,14 +84,20 @@ class SignUp implements \App\Controller
                 isset($files[0]['file_name']) ? $files[0]['file_name'] : null
             );
 
-            $this->UsersRepo->addNewUser($user);
             if (!empty($files)) {
-                $this->downloadFiles($files);
+                try {
+                    $this->downloadFiles($files);
+                } catch (\Exception $e) {
+                    //throw new UsePage(404);
+                    throw $e;
+                }
             }
+
+            $this->UsersRepo->addNewUser($user);
 
             return $this->success([
                 'post' => $req->POST->getAll(),
-                'addedUserId' => $user,
+                'user' => $user,
             ]);
         }
 

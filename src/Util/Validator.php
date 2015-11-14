@@ -79,7 +79,7 @@ class Validator
      * @param array $rules                   List of rules.
      * @param \App\Util\Params $params   Params that must be validated.
      */
-    public function __construct($rules, $params)
+    public function __construct($rules = [], $params)
     {
         if (!empty($rules)) {
             $this->rules = $rules;

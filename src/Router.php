@@ -18,6 +18,7 @@ class Router
     protected $pages = [  // in alphabetic order
         'api/get.translates' => ['api' => true, 'render' => Page::AS_JSON],
         'api/post.login' => ['api' => true, 'render' => Page::AS_JSON],
+        'api/post.restorePass' => ['api' => true, 'render' => Page::AS_JSON],
         'api/post.signUp' => ['api' => true, 'render' => Page::AS_JSON],
         'index' => [],
         'profile' => [],

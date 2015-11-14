@@ -2,10 +2,11 @@
 
 namespace App\Api\POST;
 
-use App\Inject;
-use App\Model;
-use App\Util\StringEncryption;
-use App\Util\Validator;
+use \App\Inject;
+use \App\Model;
+use \App\Util;
+use \App\Util\StringEncryption;
+use \App\Util\Validator;
 
 
 /**
@@ -16,6 +17,7 @@ use App\Util\Validator;
 class Login implements \App\Controller
 {
     use Inject\Repository\Users;
+    use Util\JsonResults;
 
 
     /**
@@ -25,7 +27,7 @@ class Login implements \App\Controller
      */
     public $rules = [
         'login' => ['required', 'existingLogin'],
-        'pass' => ['required'],
+        'pass' => ['required', 'correctPassword'],
     ];
 
     /**
@@ -48,21 +50,28 @@ class Login implements \App\Controller
     {
         $validator = new Validator($this->rules, $req->POST);
 
+        $user = $this->UsersRepo->getUserByLoginHash(
+            StringEncryption::hashString($req->POST->String('login'))
+        );
+
         $validator->addCheckMethod('existingLogin', function ($login) {
-            return $this->UsersRepo->getUserIdByLoginHash(
+            return empty($login) || $this->UsersRepo->getUserIdByLoginHash(
                 StringEncryption::hashString($login)
             );
         });
 
-        if ($result = $validator->check()) {
+        $validator->addCheckMethod('correctPassword',
+            function ($pass) use ($user) {
+                return empty($pass) || password_verify($pass, $user->pass);
+            }
+        );
 
+        if ($validator->check()) {
+            return $this->success();
         }
 
-        return ['toRender' => [
-            'status' => $result ? 'success' : 'failure',
-            'errors' => $validator->getErrors(),
-            'post' => $req->POST->getAll(),
-            'addedUserId' => isset($user) ? $user->id : null,
-        ]];
+        return $this->error(
+            $validator->getErrors(), ['post' => $req->POST->getAll()]
+        );
     }
 }

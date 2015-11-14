@@ -19,19 +19,19 @@
             <input name="login" type="text"
                    placeholder="{{ Lang('form_login') }}*">
           </div>
-          <a id="fp_button" href="javascript:void(0)">Забыли пароль?</a>
         </div>
         <div class="form_block">
           <div class="element-wrapper">
             <input name="pass" type="password"
                    placeholder="{{ Lang('form_pass') }}*">
           </div>
+          <a id="fp_button" href="javascript:void(0)">Забыли пароль?</a>
         </div>
         <input type="submit" value="{{ Lang('button_login') }}">
       </fieldset>
     </form>
 
-    <form id="restoreForm" method="post" action="#">
+    <form id="restoreForm" method="post" action="/api/post.restorePass">
       <fieldset class="restore">
         <div class="form_block">
           <div class="element-wrapper">

@@ -28,6 +28,11 @@
             },
             success : function(data) {
                 if (data.status == 'success') {
+                    if (data.data !== null
+                        && data.data.notification !== undefined
+                    ) {
+                        alert(data.data.notification);
+                    }
                     $button
                         .removeClass('loading')
                         .addClass('saved');
@@ -45,7 +50,7 @@
                 var commonErrors = {};
                 $.each(data.errors, function (field, errors) {
                     var errorMessages = [];
-                    var $element = $('[name^="'+field+'"]');
+                    var $element = $form.find('[name^="'+field+'"]');
                     $.each(errors, function (error, message) {
                         errorMessages.push(message);
                     });

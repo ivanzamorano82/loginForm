@@ -92,7 +92,7 @@ class User
         $this->phone = $phone;
         $this->photo = $photo;
         $this->pass = $this->hashPassword($pass);
-        $this->encryptData($pass);
+        $this->encryptData($email);
         $this->loginHash = StringEncryption::hashString($login);
         $this->emailHash = StringEncryption::hashString($email);
     }
@@ -131,5 +131,19 @@ class User
     public static function hashPassword($password)
     {
         return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+    }
+
+    /**
+     * Generates random password with given length.
+     *
+     * @param int $length   Required length of generated password.
+     *
+     * @return string   Generated password.
+     */
+    public static function generatePassword($length = 6)
+    {
+        return substr(str_shuffle(
+            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        ), 0, $length);
     }
 }

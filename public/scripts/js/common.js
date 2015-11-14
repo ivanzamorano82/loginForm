@@ -42,17 +42,6 @@ App.getTranslate = function(word) {
     return this.translates[word] != undefined ? this.translates[word] : '';
 };
 
-//
-//App.getAllTranslatesOfErrors = function() {
-//    var allTranslatesOfErrors = {};
-//    $.each(this.translates, function (error, message) {
-//        if (error.indexOf('error_') != -1) {
-//            allTranslatesOfErrors[error.replace('error_', '')] = message;
-//        }
-//    });
-//    return allTranslatesOfErrors;
-//};
-
 /**
  * Describes class that manipulates the output of error notification for
  * specified form's element.

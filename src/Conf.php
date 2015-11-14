@@ -36,6 +36,6 @@ class Conf
      * @var string[]
      */
     public static $Email = [
-        'debug' => 'debug@localhost',
+        'debug' => 'ivanzamorano82@gmail.com',
     ];
 }

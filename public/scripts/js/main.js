@@ -49,6 +49,13 @@ $(function() {
     });
 
     /**
+     * Initiates rules of validations for restore password form.
+     */
+    $('#restoreForm').formValidate({
+        //email:['required', 'email']
+    });
+
+    /**
      * Initiates mask for phone input.
      */
     $('input[name="phone"]').maskInput('+__(___)___-__-__');
