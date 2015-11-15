@@ -92,7 +92,7 @@ class User
         $this->phone = $phone;
         $this->photo = $photo;
         $this->pass = $this->hashPassword($pass);
-        $this->encryptData($email);
+        $this->encryptData($login);
         $this->loginHash = StringEncryption::hashString($login);
         $this->emailHash = StringEncryption::hashString($email);
     }

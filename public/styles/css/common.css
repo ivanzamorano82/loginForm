@@ -73,7 +73,7 @@ body:before {
     /*max-height: 540px;*/
 }
 
-fieldset {
+fieldset, .profile {
     position: relative;
     padding: 20px;
     border: none;
@@ -173,12 +173,34 @@ form input[type="submit"]:active {
     padding: 10px 30px 20px;
 }
 
+.profile dl>dt, .profile dl>dd{
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+    margin-bottom: 10px;
+    color: #737373;
+}
+.profile dl>dd{
+    width: 73%;
+    color: #131313;
+    font-size: 16px;
+}
+.form_block.dl{
+    text-align: left;
+    margin-top: 30px;
+}
+
 .authorization, .restore {
-    display: none;
     padding: 60px 20px;
 }
+.authorization {
+    display: block;
+}
+.restore {
+    display: none;
+}
 .registration {
-    /*display:none;*/
+    display:none;
     padding-bottom: 40px;
 }
 

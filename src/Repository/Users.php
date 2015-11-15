@@ -140,6 +140,35 @@ class Users
     }
 
     /**
+     * Get user by its ID.
+     *
+     * @param int $userId   ID of required user.
+     *
+     * @return null|User   Required user if it exists.
+     */
+    public function getUserById($userId)
+    {
+        $sql = "SELECT `id`,`login`,`loginHash`,`email`,`emailHash`,".
+               "`pass`,`fio`,`phone`,`photo` ".
+               "FROM `".DB::TBL_USERS."` ".
+               "WHERE `id`=? LIMIT 1";
+        $st = $this->MySQL->getConn()->prepare($sql);
+        $st->execute([$userId]);
+        $r = $st->fetch();
+        if (empty($r)) {
+            return null;
+        }
+        $user = new User();
+        foreach ([
+            'id', 'login', 'loginHash', 'email', 'emailHash',
+            'pass', 'fio', 'phone', 'photo'
+        ] as $param) {
+            $user->{$param} = $r[$param];
+        }
+        return $user;
+    }
+
+    /**
      * Save user's data into repository.
      *
      * @param User $user   User that must be stored.

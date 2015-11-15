@@ -45,8 +45,13 @@ class Twig  implements \App\Renderer
                 $this->initCurrentLang();
                 return $this->TranslatesRepo
                     ->getTranslateByCode($code, $this->CurrentLang);
-            })
-        );
+            }
+        ));
+        $this->Twig->addFunction(new \Twig_SimpleFunction('Img',
+            function ($src) {
+                return USER_URL.$src;
+            }
+        ));
     }
 
     /**

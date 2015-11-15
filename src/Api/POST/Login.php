@@ -2,6 +2,7 @@
 
 namespace App\Api\POST;
 
+use App\Exception\Redirect;
 use \App\Inject;
 use \App\Model;
 use \App\Util;
@@ -17,6 +18,7 @@ use \App\Util\Validator;
 class Login implements \App\Controller
 {
     use Inject\Repository\Users;
+    use Inject\Repository\Sessions;
     use Util\JsonResults;
 
 
@@ -67,7 +69,11 @@ class Login implements \App\Controller
         );
 
         if ($validator->check()) {
-            return $this->success();
+            $this->initSessionsRepo();
+            $this->SessionsRepo->setAuthorization(
+                $user->id, $req->POST->String('login')
+            );
+            throw new Redirect(Redirect::ROOT_PAGE);
         }
 
         return $this->error(

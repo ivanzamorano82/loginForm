@@ -1,13 +1,17 @@
+{% set pageScripts = [
+  'jquery.formValidate.js', 'jquery.maskInput.js', 'main.js'
+] %}
+
 {% extends 'models/main.twig' %}
 
 {% block content %}
 <div class="block-center" >
   <div class="form-wrapp">
     <div class="tabs">
-      <a href="javascript:void(0);" rel=".authorization">
+      <a class="active-tab" href="javascript:void(0);" rel=".authorization">
         {{ Lang('title_login') }}
       </a>
-      <a class="active-tab" href="javascript:void(0);" rel=".registration">
+      <a href="javascript:void(0);" rel=".registration">
         {{ Lang('title_registration') }}
       </a>
     </div>

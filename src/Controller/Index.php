@@ -13,7 +13,6 @@ use \App\Inject;
  */
 class Index implements \App\Controller
 {
-    use Inject\Repository\Translates;
     use Inject\Current\Lang;
 
 
@@ -22,7 +21,6 @@ class Index implements \App\Controller
      */
     public function __construct()
     {
-        $this->initTranslatesRepo();
         $this->initCurrentLang();
     }
 
@@ -37,8 +35,6 @@ class Index implements \App\Controller
      */
     public function run($req)
     {
-        return ['toRender' => [
-            'tr' => $this->TranslatesRepo->getAllTranslates($this->CurrentLang),
-        ]];
+        return ['toRender' => []];
     }
 }

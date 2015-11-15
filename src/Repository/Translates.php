@@ -82,7 +82,7 @@ class Translates
      * @param bool $excludePrefix   Exclude prefix from result's key list
      *                              or not.
      *
-*@return array
+    * @return array   List of required translates.
      */
     public function getTranslatesByPrefix($lang, $prefix, $excludePrefix = true)
     {

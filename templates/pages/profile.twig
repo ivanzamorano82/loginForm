@@ -1,1 +1,33 @@
-профиль {{ xxx }}
+{% extends 'models/main.twig' %}
+
+{% block content %}
+<div class="block-center">
+    <div class="form-wrapp">
+        <div class="tabs">
+            <h1>{{ Lang('profile_title') }} <span>{{ user.login }}</span></h1>
+        </div>
+        <div class="profile">
+            <div class="form_block" id="photo">
+                <div class="photo-wrapper">
+                    <img class="vertical-center" src="{{ Img(user.photo) }}">
+                </div>
+            </div>
+            <div class="form_block dl">
+                <dl>
+                    <dt>{{ Lang('form_name') }}:</dt>
+                    <dd>{{ user.fio }}</dd>
+                    <dt>{{ Lang('form_login') }}:</dt>
+                    <dd>{{ user.login }}</dd>
+                    <dt>{{ Lang('form_phone') }}:</dt>
+                    <dd>{{ user.phone }}</dd>
+                    <dt>{{ Lang('form_email') }}:</dt>
+                    <dd>{{ user.email }}</dd>
+                </dl>
+            </div>
+            <form id="logout" method="post" action="/logout">
+                <input type="submit" value="{{ Lang('profile_logout') }}">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

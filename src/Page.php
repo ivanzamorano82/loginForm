@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Exception\Redirect;
 
 
 /**
@@ -8,6 +9,9 @@ namespace App;
  */
 class Page
 {
+    use Inject\Current\User;
+
+
     /** Behaviour that page must not be rendered. */
     const AS_NOTHING = 0;
     /** Behaviour that page must be rendered as HTML. */
@@ -131,17 +135,16 @@ class Page
     public function process($req = null)
     {
         try {
-            //if ($this->auth !== self::AUTH_NO) {
-            //    $this->initAuthorizedAccount();
-            //    if ($this->auth === self::AUTH_REQUIRED) {
-            //        if ($this->AuthorizedAccount === null) {
-            //            return self::create('404')->process($req);
-            //        }
-            //    }
-            //}
-            //if ($this->render != self::AS_NOTHING) {
-            //    $this->toRender =
-            //}
+            if ($this->auth !== self::AUTH_NO) {
+                $this->initCurrentUser();
+                if ($this->auth === self::AUTH_REQUIRED) {
+                    if ($this->CurrentUser === null) {
+                        header('Location: '.Redirect::LOGIN_PAGE);
+                        $this->render = self::AS_NOTHING;
+                        return $this;
+                    }
+                }
+            }
 
             $namespace = $this->api
                 ? '\App\Api\\'.$req->method.'\\'
@@ -154,16 +157,19 @@ class Page
                 try {
                     $result = $controller->run($req);
                 } catch (Exception\Redirect $redirect) {
-                    header('Location: '.$redirect->url);
-                    $this->render = self::AS_NOTHING;
+                    if ($this->render === self::AS_HTML) {
+                        header('Location: '.$redirect->url);
+                        $this->render = self::AS_NOTHING;
+                    } elseif ($this->render === self::AS_JSON) {
+                        $this->status = 301;
+                        $this->toRender['redirectUrl'] = $redirect->url;
+                    }
                     return $this;
                 } catch (Exception\UsePage $use) {
                     return self::create($use->page)->process($req);
                 }
                 if (isset($result['toRender'])) {
-                    $this->toRender = array_merge(
-                        $this->toRender, $result['toRender']
-                    );
+                    $this->toRender = $result['toRender'];
                 }
             }
         } catch (\Exception $e) {

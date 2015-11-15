@@ -16,12 +16,29 @@ class Router
      * @var array[]
      */
     protected $pages = [  // in alphabetic order
-        'api/get.translates' => ['api' => true, 'render' => Page::AS_JSON],
-        'api/post.login' => ['api' => true, 'render' => Page::AS_JSON],
-        'api/post.restorePass' => ['api' => true, 'render' => Page::AS_JSON],
-        'api/post.signUp' => ['api' => true, 'render' => Page::AS_JSON],
-        'index' => [],
+        'api/get.translates' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'api/post.login' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'api/post.restorePass' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'api/post.signUp' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'index' => ['auth' => Page::AUTH_YES],
         'profile' => [],
+        'logout' => [],
         '404' => [
             'status' => 404,
             'auth' => Page::AUTH_NO,

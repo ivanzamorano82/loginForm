@@ -24,3 +24,5 @@ define('DOWNLOAD_FOLDER', PROJECT_ROOT.'/public/downloads/');
 define('USERS_FOLDER', DOWNLOAD_FOLDER.'/users/');
 /** Relative url to downloaded  images */
 define('IMAGE_URL', 'downloads/');
+/** Relative url to downloaded  user's images */
+define('USER_URL', IMAGE_URL.'users/');

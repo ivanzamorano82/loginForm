@@ -10,9 +10,11 @@
   <!-- including of scripts -->
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="scripts/js/common.js"></script>
-  <script type="text/javascript" src="scripts/js/jquery.formValidate.js"></script>
-  <script type="text/javascript" src="scripts/js/jquery.maskInput.js"></script>
-  <script type="text/javascript" src="scripts/js/main.js"></script>
+  {% if pageScripts %}
+    {% for script in pageScripts %}
+      <script src="scripts/js/{{ script }}"></script>
+    {% endfor %}
+  {% endif %}
 </head>
 <body>
   {% block content %}{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use \App\Inject;
 
 /**
  * Implements a controller for "profile" page which render person's information.
@@ -10,12 +11,16 @@ namespace App\Controller;
  */
 class Profile implements \App\Controller
 {
+    use Inject\Current\User;
+
+
     /**
      * Creates new controller of "profile" page and sets required dependency.
      */
     public function __construct()
     {
-        // Does nothing.
+        $this->initCurrentUser();
+        $this->initUsersRepo();
     }
 
     /**
@@ -28,7 +33,7 @@ class Profile implements \App\Controller
     public function run($req)
     {
         return ['toRender' => [
-            'xxx' => 'профиль',
+            'user' => $this->CurrentUser,
         ]];
     }
 }
