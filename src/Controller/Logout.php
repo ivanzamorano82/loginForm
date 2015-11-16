@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Exception\Redirect;
+use \App\Exception\Redirect;
 use \App\Inject;
 
 

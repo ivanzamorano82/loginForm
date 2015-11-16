@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model;
-use App\Util\StringEncryption;
+use \App\Util\StringEncryption;
 
 
 /**

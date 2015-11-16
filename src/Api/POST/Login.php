@@ -2,7 +2,7 @@
 
 namespace App\Api\POST;
 
-use App\Exception\Redirect;
+use \App\Exception\Redirect;
 use \App\Inject;
 use \App\Model;
 use \App\Util;
@@ -46,6 +46,9 @@ class Login implements \App\Controller
      *
      * @param \App\Request $req  HTTP request to handler.
      *
+     * @throws Redirect   Redirect to profile page if authentication
+     *                    was successful.
+     *
      * @return array   Parameters for page template rendering.
      */
     public function run($req)
@@ -73,7 +76,7 @@ class Login implements \App\Controller
             $this->SessionsRepo->setAuthorization(
                 $user->id, $req->POST->String('login')
             );
-            throw new Redirect(Redirect::ROOT_PAGE);
+            throw new Redirect(Redirect::PROFILE_PAGE);
         }
 
         return $this->error(

@@ -2,8 +2,8 @@
 
 namespace App\Inject\Storage;
 
-use App\Conf;
-use App\Storage;
+use \App\Conf;
+use \App\Storage;
 
 
 /**

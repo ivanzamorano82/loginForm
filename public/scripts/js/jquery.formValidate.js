@@ -15,37 +15,36 @@
      */
     var runSubmit = function ($form, additionalQueryString) {
         var $button = $form
-            .find('button[type="submit"] i');
+            .find('button[type="submit"]');
         $.ajax({
             url : $form.attr('action'),
             data : $form.serialize() + additionalQueryString,
             dataType : 'json',
             type : 'post',
             beforeSend: function() {
-                $button
-                    .addClass('loading')
-                    .removeClass('save');
+                $button.addClass('saving');
             },
             success : function(data) {
+                setTimeout(function() {
+                    $button.removeClass('saving');
+                }, 700);
+
+                // Для наглядности вывожу пароль в alert, конечно же
+                // так делать нельзя, новый пароль должен высылаться
+                // на email пользователя.
                 if (data.status == 'success') {
                     if (data.data !== null
                         && data.data.notification !== undefined
                     ) {
-                        alert(data.data.notification);
+                        alert(
+                            data.data.notification + ' => Для наглядности '+
+                            'вывожу пароль в alert. Конечно же '+
+                            'так делать нельзя, новый пароль должен ' +
+                            'высылаться на email пользователя.'
+                        );
                     }
-                    $button
-                        .removeClass('loading')
-                        .addClass('saved');
-                    setTimeout(function() {
-                        $button
-                            .removeClass('saved')
-                            .addClass('save');
-                    }, 2000);
                     return;
                 }
-                $button
-                    .removeClass('loading')
-                    .addClass('save');
 
                 var commonErrors = {};
                 $.each(data.errors, function (field, errors) {
@@ -79,9 +78,7 @@
                         xhr.status+' => '+
                         xhr.statusText;
                     alert(errorMessage);
-                    $button
-                        .removeClass('loading')
-                        .addClass('save');
+                    $button.removeClass('saving');
                 }
             }
         });

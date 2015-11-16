@@ -2,7 +2,7 @@
 
 namespace App\Inject\Repository;
 
-use App\Repository;
+use \App\Repository;
 
 
 /**

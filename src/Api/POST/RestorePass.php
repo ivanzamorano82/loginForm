@@ -2,7 +2,7 @@
 
 namespace App\Api\POST;
 
-use App\Conf;
+use \App\Conf;
 use \App\Inject;
 use \App\Model;
 use \App\Util;

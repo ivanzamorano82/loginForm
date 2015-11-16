@@ -2,7 +2,7 @@
 
 namespace App\Storage;
 
-use App\ExternalResources;
+use \App\ExternalResources;
 
 
 /**

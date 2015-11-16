@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
-use App\Inject;
-use App\Storage\MySQL as DB;
+use \App\Inject;
+use \App\Storage\MySQL as DB;
 
 
 /**

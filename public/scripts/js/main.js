@@ -1,6 +1,6 @@
 $(function() {
     /**
-     * Переключение закладок регистрации и авторизации
+     * Switches tabs for sign up and login.
      */
     $('.tabs a').click(function() {
         if (!$(this).is('.active_tab')) {
@@ -9,12 +9,18 @@ $(function() {
             $(rel).show().parent().siblings('form').find('fieldset').hide();
         }
     });
-    
+
+    /**
+     * Switches between authorization and restore tabs.
+     */
     $('#fp_button').click(function() {
         $('.authorization').hide();
         $('.restore').show();
     });
 
+    /**
+     * Switches between restore and authorization tabs.
+     */
     $('#back_login').click(function() {
         $('.restore').hide();
         $('.authorization').show();
@@ -25,11 +31,11 @@ $(function() {
      * And adds additional field "photo" in post.
      */
     $('#signUpForm').formValidate({
-        //fio:   ['required', 'alphabet', 'length(30)'],
-        //login: ['required', 'alphaNumeric(en)', 'length(20)'],
-        //email: ['required', 'email', 'length(100)'],
-        //pass: ['required', 'range(6,15)'],
-        //repeat_pass: ['required', 'matchWith(pass)']
+        fio:   ['required', 'alphabet', 'length(30)'],
+        login: ['required', 'alphaNumeric(en)', 'length(20)'],
+        email: ['required', 'email', 'length(100)'],
+        pass: ['required', 'range(6,15)'],
+        repeat_pass: ['required', 'matchWith(pass)']
     }, {
         photo: function() {
             var $dz = $('#drop-zone img');
@@ -44,15 +50,15 @@ $(function() {
      * Initiates rules of validations for login form.
      */
     $('#loginForm').formValidate({
-        //login: ['required'],
-        //pass: ['required']
+        login: ['required'],
+        pass: ['required']
     });
 
     /**
      * Initiates rules of validations for restore password form.
      */
     $('#restoreForm').formValidate({
-        //email:['required', 'email']
+        email:['required', 'email']
     });
 
     /**
@@ -61,7 +67,7 @@ $(function() {
     $('input[name="phone"]').maskInput('+__(___)___-__-__');
 
     /**
-     * запрещаем драг & дроп в браузере
+     * Prevents D&D in browser.
      */
     $(document).on('drop dragover', function (evt) {
         evt.stopPropagation();
@@ -69,26 +75,26 @@ $(function() {
     });
 
     /**
-     * Вход в зону D&D
+     * Enters in D&D zone.
      */
     $(document).on('dragenter', '.photo-wrapp', function() {
         $(this).addClass('hover');
     });
 
     /**
-     * Выход из зоны D&D
+     * Leaves in D&D zone.
      */
     $(document).on('dragleave', '.photo-wrapp', function() {
         $(this).removeClass('hover');
     });
 
     /**
-     * Объект дропзоны
+     * Object of D&D.
      */
     var dropZone = document.getElementById('drop-zone');
 
     /**
-     * Обработчик дропзоны изображения
+     * Handler of D&D for dropping files.
      */
     dropZone.addEventListener('drop', function(evt) {
         var j = $(this);
@@ -101,7 +107,7 @@ $(function() {
         var reader = new FileReader();
 
         /**
-         * успешная загрузка изображения
+         * Successful downloading of file.
          * @param event
          */
         reader.onload = function(event) {
@@ -115,14 +121,14 @@ $(function() {
         };
 
         /**
-         * Начало загрузки изображения
+         * Start of file downloading.
          */
         reader.onloadstart = function() {
             App.changeImage(j);
         };
 
         /**
-         * Проверка типа загружаемого файла и допустимого размера
+         * Checks type and available size of downloading file.
          */
         var EM;
         if (file.type.split('/')[0] != 'image') {

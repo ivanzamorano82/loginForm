@@ -12,6 +12,12 @@ window.App = {
     translates: {}
 };
 
+/**
+ * Appends or changes image in D&Z.
+ *
+ * @param {Object} j       Element of DOM for drop zone.
+ * @param {string} image   Url of image or image in base64 format.
+ */
 App.changeImage = function (j, image) {
     if (image == undefined) {
         image = App.options.loadingPicture;
@@ -27,6 +33,9 @@ App.changeImage = function (j, image) {
     }
 };
 
+/**
+ * Gets all translates from server.
+ */
 App.getAllTranslates = function() {
     $.ajax({
         url : '/api/get.translates',
@@ -38,6 +47,13 @@ App.getAllTranslates = function() {
     });
 };
 
+/**
+ * Gets translate of one word.
+ *
+ * @param {string} word   Key of required word.
+ *
+ * @returns {string}   Required word.
+ */
 App.getTranslate = function(word) {
     return this.translates[word] != undefined ? this.translates[word] : '';
 };

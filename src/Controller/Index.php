@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use \App\Exception\Redirect;
 use \App\Inject;
 
 
@@ -13,7 +14,7 @@ use \App\Inject;
  */
 class Index implements \App\Controller
 {
-    use Inject\Current\Lang;
+    use Inject\Current\User;
 
 
     /**
@@ -21,7 +22,7 @@ class Index implements \App\Controller
      */
     public function __construct()
     {
-        $this->initCurrentLang();
+        $this->initCurrentUser();
     }
 
     /**
@@ -29,12 +30,16 @@ class Index implements \App\Controller
      *
      * @param \App\Request $req  HTTP request to "index" page.
      *
-     * @todo   Allocate required translations for current page.
+     * @throws Redirect   Redirect to login page if user has been authorized
+     *                    already.
      *
      * @return array   Parameters for page template rendering.
      */
     public function run($req)
     {
+        if ($this->CurrentUser !== null) {
+            throw new Redirect(Redirect::PROFILE_PAGE);
+        }
         return ['toRender' => []];
     }
 }

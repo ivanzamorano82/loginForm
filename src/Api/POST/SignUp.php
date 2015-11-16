@@ -2,7 +2,7 @@
 
 namespace App\Api\POST;
 
-use App\Exception\UsePage;
+use \App\Exception\Redirect;
 use \App\Inject;
 use \App\Model;
 use \App\Util;
@@ -18,6 +18,7 @@ use \App\Util\Validator;
 class SignUp implements \App\Controller
 {
     use Inject\Repository\Users;
+    use Inject\Repository\Sessions;
     use Util\JsonResults;
 
 
@@ -51,6 +52,10 @@ class SignUp implements \App\Controller
      * Runs controller of API handler "signUp".
      *
      * @param \App\Request $req  HTTP request to handler.
+     *
+     * @throws Redirect     Redirect to profile page if registration
+     *                      was successful.
+     * @throws \Exception   Throw exception if downloading has been failed.
      *
      * @return array   Parameters for page template rendering.
      */
@@ -95,10 +100,13 @@ class SignUp implements \App\Controller
 
             $this->UsersRepo->addNewUser($user);
 
-            return $this->success([
-                'post' => $req->POST->getAll(),
-                'user' => $user,
-            ]);
+            $this->initSessionsRepo();
+            $this->SessionsRepo->setAuthorization(
+                $user->id, $req->POST->String('login')
+            );
+
+            throw new Redirect(Redirect::PROFILE_PAGE);
+            //return $this->success(['user' => $user]);
         }
 
         return $this->error($validator->getErrors(),[

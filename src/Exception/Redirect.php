@@ -15,9 +15,9 @@ class Redirect extends \Exception
     const LOGIN_PAGE = '/index';
 
     /**
-     * Alias of root page in control panel.
+     * Alias of root page in profile panel.
      */
-    const ROOT_PAGE = '/profile';
+    const PROFILE_PAGE = '/profile';
 
     /**
      * URL where site user must be redirected to.

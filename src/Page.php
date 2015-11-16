@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-use App\Exception\Redirect;
+
+use \App\Exception\Redirect;
 
 
 /**
