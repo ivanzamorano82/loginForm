@@ -249,7 +249,7 @@ form .error-block:before {
     border-bottom: 8px solid #FFCAC5;
 }
 .error input {
-    border-color: red;
+    border-color: red !important;
     transition: 500ms;
 }
 
@@ -330,4 +330,8 @@ pre {
     margin: auto;
     max-height: 100%;
     max-width: 100%;
+}
+
+.menu a{
+    color: red;
 }

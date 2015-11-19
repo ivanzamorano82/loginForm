@@ -1,27 +1,26 @@
-{% set pageScripts = [
-  'jquery.formValidate.js', 'jquery.maskInput.js', 'main.js'
-] %}
+{% set pageScripts = ['main.js'] %}
 
 {% extends 'models/main.twig' %}
 
 {% block content %}
-<div class="block-center" >
+<div class="block-center" ng-controller="LoginController">
   <div class="form-wrapp">
-    <div class="tabs">
-      <a class="active-tab" href="javascript:void(0);" rel=".authorization">
-        {{ Lang('title_login') }}
-      </a>
-      <a href="javascript:void(0);" rel=".registration">
-        {{ Lang('title_registration') }}
-      </a>
-    </div>
-
-    <form id="loginForm" method="post" action="api/post.login">
+    <form name="loginForm" method="post" ng-submit="doSignUp()"
+          novalidate autocomplete="off">
       <fieldset class="authorization">
         <div class="form_block">
-          <div class="element-wrapper">
-            <input name="login" type="text"
+          <div class="element-wrapper"
+               ng-class="(loginForm.login.$error.required && loginForm.login.$dirty)
+               || (loginForm.$submitted && loginForm.login.$error.required)
+               ? 'error' : ''">
+            <input name="login" type="text" required pattern="[a-z]+"
+                   ng-model="login_"
                    placeholder="{{ Lang('form_login') }}*">
+            <div class="error-block"
+                 ng-show2="(loginForm.login.$error.required && loginForm.login.$dirty)
+                 || (loginForm.$submitted && loginForm.login.$error.required)">
+              [[ errorMessage ]]
+            </div>
           </div>
         </div>
         <div class="form_block">
@@ -29,76 +28,8 @@
             <input name="pass" type="password"
                    placeholder="{{ Lang('form_pass') }}*">
           </div>
-          <a id="fp_button" href="javascript:void(0)">Забыли пароль?</a>
         </div>
         <button type="submit"><span>{{ Lang('button_login') }}</span></button>
-      </fieldset>
-    </form>
-
-    <form id="restoreForm" method="post" action="/api/post.restorePass">
-      <fieldset class="restore">
-        <div class="form_block">
-          <div class="element-wrapper">
-            <input name="email" type="text"
-                   placeholder="{{ Lang('form_email') }}*">
-          </div>
-          <a id="back_login" href="javascript:void(0)">
-            {{ Lang('link_back') }}
-          </a>
-        </div>
-        <div class="form_block">
-          <p>{{ Lang('text_restore') }}</p>
-        </div>
-        <button type="submit"><span>{{ Lang('button_restore') }}</span></button>
-      </fieldset>
-    </form>
-
-    <form id="signUpForm" action="/api/post.signUp"
-          method="post" enctype="multipart/form-data">
-      <fieldset class="registration">
-        <div class="form_block" id="photo">
-          <div class="photo-wrapper" id="drop-zone">
-            <span id="d_d" class="vertical-center">
-              {{ Lang('drag_drop') }}
-            </span>
-          </div>
-        </div>
-
-        <div class="form_block">
-          <div class="element-wrapper">
-            <input name="fio" type="text"
-                   placeholder="{{ Lang('form_name') }}*">
-          </div>
-          <div class="element-wrapper">
-            <input name="login" type="text"
-                   placeholder="{{ Lang('form_login') }}*">
-          </div>
-        </div>
-
-        <div class="form_block">
-          <div class="element-wrapper">
-              <input name="phone" type="text"
-                     placeholder="{{ Lang('form_phone') }}">
-          </div>
-          <div class="element-wrapper">
-              <input name="email" type="text"
-                     placeholder="{{ Lang('form_email') }}*">
-          </div>
-        </div>
-
-        <div class="form_block">
-          <div class="element-wrapper">
-              <input name="pass" type="password"
-                     placeholder="{{ Lang('form_pass') }}*">
-          </div>
-          <div class="element-wrapper">
-              <input name="repeat_pass" type="password"
-                     placeholder="{{ Lang('form_repeat_pass') }}*">
-          </div>
-        </div>
-        <button type="submit" class="save">
-          <span>{{ Lang('button_registration') }}</span>
-        </button>
       </fieldset>
     </form>
   </div>

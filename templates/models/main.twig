@@ -8,8 +8,9 @@
   <!-- including of favicon -->
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <!-- including of scripts -->
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="scripts/js/common.js"></script>
+  {#<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>#}
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  {#<script type="text/javascript" src="scripts/js/common.js"></script>#}
   {% if pageScripts %}
     {% for script in pageScripts %}
       <script src="scripts/js/{{ script }}"></script>
@@ -17,6 +18,13 @@
   {% endif %}
 </head>
 <body>
+  <header>
+    <ul class="menu">
+      <li><a href="">Авторизация</a></li>
+      <li><a href="">Регистрация</a></li>
+      <li><a href="">Редактирование переводов</a></li>
+    </ul>
+  </header>
   {% block content %}{% endblock %}
 </body>
 </html>
