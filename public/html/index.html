@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="authApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <!-- including of style -->
+    <link rel="stylesheet" href="/../styles/css/common.css" type="text/css"/>
+    <!-- including of favicon -->
+    <link rel="shortcut icon" href="/../images/favicon.png" type="image/x-icon">
+    <!-- including of scripts -->
+    <script type="text/javascript" src="/../bower_components/angular/angular.min.js"></script>
+    <script src="/../bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/../scripts/js/common.js"></script>
+    <script src="/../scripts/js/app.js"></script>
+    <script src="/../scripts/js/main.js"></script>
+</head>
+<body>
+<header>
+    <ul class="menu">
+        <li><a href="">Авторизация</a></li>
+        <li><a href="">Регистрация</a></li>
+        <li><a href="">Редактирование переводов</a></li>
+    </ul>
+</header>
+    <div ng-view></div>
+</body>
+</html>

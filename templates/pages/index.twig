@@ -1,4 +1,4 @@
-{% set pageScripts = ['main.js'] %}
+{% set pageScripts = ['app.js', 'main.js'] %}
 
 {% extends 'models/main.twig' %}
 
@@ -10,16 +10,20 @@
       <fieldset class="authorization">
         <div class="form_block">
           <div class="element-wrapper"
-               ng-class="(loginForm.login.$error.required && loginForm.login.$dirty)
-               || (loginForm.$submitted && loginForm.login.$error.required)
-               ? 'error' : ''">
+               ng-class="loginForm.login.$invalid
+               && (loginForm.login.$dirty || loginForm.$submitted) ? 'error' : ''">
             <input name="login" type="text" required pattern="[a-z]+"
                    ng-model="login_"
                    placeholder="{{ Lang('form_login') }}*">
             <div class="error-block"
-                 ng-show2="(loginForm.login.$error.required && loginForm.login.$dirty)
-                 || (loginForm.$submitted && loginForm.login.$error.required)">
-              [[ errorMessage ]]
+                 ng-show="loginForm.login.$invalid
+                 && (loginForm.login.$dirty || loginForm.$submitted)">
+                <span ng-show="loginForm.login.$error.required">
+                    [[ translates.error_required ]]
+                </span>
+                <span ng-show="loginForm.login.$error.pattern">
+                    Неверный формат логина
+                </span>
             </div>
           </div>
         </div>

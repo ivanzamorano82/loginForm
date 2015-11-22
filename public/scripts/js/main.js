@@ -1,29 +1,31 @@
 'use strict';
 
-var authApp = angular.module('authApp', []);
+var authControllers = angular.module('authControllers', []);
 
-authApp.config(function($interpolateProvider){
-    $interpolateProvider.startSymbol('[[').endSymbol(']]');
-});
+//authApp.config(function($interpolateProvider){
+//    $interpolateProvider.startSymbol('[[').endSymbol(']]');
+//});
 
-authApp.controller('LoginController', ['$scope', '$http',
+authControllers.controller('LoginController', ['$scope', '$http',
     function($scope, $http) {
-        console.log('init login controller');
-
-        $scope.$watch("login_", function (newValue) {
-            var login = $scope.loginForm.login,
-                errors = [];
-
-            if (login.$error.required) {
-                errors.push('Обязательное поле для заполнения.');
-                $scope.errorMessage = 'Обязательное поле для заполнения';
-            }
-
-            if (login.$error.pattern) {
-                errors.push('Поле должно содержать только буквы [a-z]');
-            }
-            $scope.errorMessage = errors.join('. ')
+        $http.get('/api/get.translates').success(function(data) {
+            $scope.translates = data;
         });
+
+        //$scope.$watch("login_", function (newValue) {
+        //    var login = $scope.loginForm.login,
+        //        errors = [];
+        //
+        //    if (login.$error.required) {
+        //        errors.push('Обязательное поле для заполнения.');
+        //        $scope.errorMessage = 'Обязательное поле для заполнения';
+        //    }
+        //
+        //    if (login.$error.pattern) {
+        //        errors.push('Поле должно содержать только буквы [a-z]');
+        //    }
+        //    $scope.errorMessage = errors.join('. ')
+        //});
 
         $scope.errorMessage = 'Обязательное поле для заполнения.';
 
@@ -47,19 +49,3 @@ authApp.controller('LoginController', ['$scope', '$http',
         $scope.xxx = 'xxxxxx';
     }
 ]);
-
-authApp.controller('Ctrl', ['$scope', function($scope) {
-    console.log('asdf');
-    $scope.list = [];
-    $scope.text = 'hello';
-    $scope.submit = function() {
-        if (this.text) {
-            this.list.push(this.text);
-            this.text = '';
-        }
-    };
-}]);
-
-var test = angular.module('testModule', []);
-
-//test.

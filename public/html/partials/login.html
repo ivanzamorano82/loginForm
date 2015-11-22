@@ -1,0 +1,33 @@
+<div class="block-center" ng-controller="LoginController">
+  <div class="form-wrapp">
+    <form name="loginForm" method="post" ng-submit="doSignUp()"
+          novalidate autocomplete="off">
+      <fieldset class="authorization">
+        <div class="form_block">
+          <div class="element-wrapper"
+               ng-class="loginForm.login.$invalid && (loginForm.login.$dirty || loginForm.$submitted) ? 'error' : ''">
+            <input name="login" type="text" required pattern="[a-z]+"
+                     ng-model="login_"
+                     placeholder="{{ translates.form_login }}*">
+            <div class="error-block"
+                 ng-show="loginForm.login.$invalid && (loginForm.login.$dirty || loginForm.$submitted)">
+              <span ng-show="loginForm.login.$error.required">
+                {{ translates.error_required }}
+              </span>
+              <span ng-show="loginForm.login.$error.pattern">
+                  Неверный формат логина
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form_block">
+          <div class="element-wrapper">
+            <input name="pass" type="password"
+                   placeholder="{{ translates.form_pass }}*">
+          </div>
+        </div>
+        <button type="submit"><span>{{ translates.button_login }}</span></button>
+      </fieldset>
+    </form>
+  </div>
+</div>
