@@ -1,0 +1,52 @@
+<div class="block-center" ng-controller="SignUpController">
+  <div class="form-wrapp">
+    <form id="signUpForm" method="post" ng-submit="doSignUp()"
+          novalidate autocomplete="off">
+      <fieldset class="registration">
+        <div class="form_block" id="photo">
+          <div class="photo-wrapper" id="drop-zone">
+            <span id="d_d" class="vertical-center">
+              {{ translates.drag_drop }}
+            </span>
+          </div>
+        </div>
+
+        <div class="form_block">
+          <div class="element-wrapper">
+            <input name="fio" type="text"
+                   placeholder="{{ translates.form_name }}*">
+          </div>
+          <div class="element-wrapper">
+            <input name="login" type="text"
+                   placeholder="{{ translates.form_login }}*">
+          </div>
+        </div>
+
+        <div class="form_block">
+          <div class="element-wrapper">
+            <input name="phone" type="text"
+                   placeholder="{{ translates.form_phone }}">
+          </div>
+          <div class="element-wrapper">
+            <input name="email" type="text"
+                   placeholder="{{ translates.form_email }}*">
+          </div>
+        </div>
+
+        <div class="form_block">
+          <div class="element-wrapper">
+            <input name="pass" type="password"
+                   placeholder="{{ translates.form_pass }}*">
+          </div>
+          <div class="element-wrapper">
+            <input name="repeat_pass" type="password"
+                   placeholder="{{ translates.form_repeat_pass }}*">
+          </div>
+        </div>
+        <button type="submit" class="save">
+          <span>{{ translates.button_registration }}</span>
+        </button>
+      </fieldset>
+    </form>
+  </div>
+</div>
