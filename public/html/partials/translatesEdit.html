@@ -1,0 +1,28 @@
+<div class="block-center" ng-controller="TranslatesEditController">
+    <div class="canvas">
+      <h3>{{ translates.title_translates_editing }}</h3>
+      <label>Текущий язык:</label>
+      <select ng-model="curLang.code">
+        <option value="{{ lang.code }}"
+                ng-repeat="lang in languages">{{ lang.title }}</option>
+      </select>
+      <form>
+        <table class="table table-bordered table-striped table-hover ">
+          <thead>
+            <tr>
+              <th>Язык</th>
+              <th>Ключевое слово</th>
+              <th>Перевод</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="word in words | filter:curLang">
+              <td>{{ word.code }}</td>
+              <td contenteditable="true">{{ word.key }}</td>
+              <td contenteditable="true">{{ word.val }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+</div>

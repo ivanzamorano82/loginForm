@@ -18,10 +18,14 @@ authApp.config(['$routeProvider',
                 templateUrl: 'partials/login.html',
                 controller: 'LoginController'
             }).
-            //when('/phones/:phoneId', {
-            //    templateUrl: 'partials/phone-detail.html',
-            //    controller: 'PhoneDetailCtrl'
-            //}).
+            when('/signUp', {
+                templateUrl: 'partials/signUp.html',
+                controller: 'SignUpController'
+            }).
+            when('/translatesEdit', {
+                templateUrl: 'partials/translatesEdit.html',
+                controller: 'TranslatesEditController'
+            }).
             otherwise({
                 redirectTo: '/login'
             });

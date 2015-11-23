@@ -2,20 +2,20 @@
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300);
 
-html, body, div, span, applet, object, iframe, table, caption, tbody, tfoot, thead, tr, th, td,
-del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
-dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
-    vertical-align: baseline;
-    font-family: inherit;
-    font-weight: inherit;
-    font-style: inherit;
-    font-size: 100%;
-    outline: 0;
-    padding: 0;
-    margin: 0;
-    border: 0;
-}
+/*html, body, div, span, applet, object, iframe, table, caption, tbody, tfoot, thead, tr, th, td,*/
+/*del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,*/
+/*h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,*/
+/*dl, dt, dd, ol, ul, li, fieldset, form, label, legend {*/
+    /*vertical-align: baseline;*/
+    /*font-family: inherit;*/
+    /*font-weight: inherit;*/
+    /*font-style: inherit;*/
+    /*font-size: 100%;*/
+    /*outline: 0;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*border: 0;*/
+/*}*/
 
 :focus {
     outline: 0;
@@ -24,14 +24,14 @@ ol, ul {
     list-style: none;
 }
 
-table {
-    border-collapse: separate;
-    border-spacing: 0;
-}
-caption, th, td {
-    font-weight: normal;
-    text-align: left;
-}
+/*table {*/
+    /*border-collapse: separate;*/
+    /*border-spacing: 0;*/
+/*}*/
+/*caption, th, td {*/
+    /*font-weight: normal;*/
+    /*text-align: left;*/
+/*}*/
 
 blockquote:before, blockquote:after, q:before, q:after {
     content: "";
@@ -73,7 +73,7 @@ body:before {
     /*max-height: 540px;*/
 }
 
-fieldset, .profile {
+fieldset, .profile, .canvas {
     position: relative;
     padding: 20px;
     border: none;
@@ -211,11 +211,8 @@ form button.saving span:after {
 .authorization {
     display: block;
 }
-.restore {
-    display: none;
-}
 .registration {
-    display:none;
+    display:block;
     padding-bottom: 40px;
 }
 
@@ -331,7 +328,16 @@ pre {
     max-height: 100%;
     max-width: 100%;
 }
-
-.menu a{
+.menu li {
+    margin: 25px;
+}
+.menu a {
     color: red;
+    padding: 10px;
+    background-color: #FBFBFA;
+    border-radius: 10px;
+}
+header {
+    text-align: center;
+    padding: 50px 0;
 }

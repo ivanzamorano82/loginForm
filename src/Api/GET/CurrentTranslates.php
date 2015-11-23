@@ -6,18 +6,18 @@ use \App\Inject;
 
 
 /**
- * Implements a controller for API handler "getTranslates".
+ * Implements a controller for API handler "getCurrentTranslates".
  *
  * @implements \App\Controller
  */
-class Translates implements \App\Controller
+class CurrentTranslates implements \App\Controller
 {
     use Inject\Repository\Translates;
     use Inject\Current\Lang;
 
 
     /**
-     * Creates new controller of API handler "getTranslates"
+     * Creates new controller of API handler "getCurrentTranslates"
      * and sets required dependency.
      */
     public function __construct()
@@ -27,7 +27,7 @@ class Translates implements \App\Controller
     }
 
     /**
-     * Runs controller of API handler "getTranslates".
+     * Runs controller of API handler "getCurrentTranslates".
      *
      * @param \App\Request $req  HTTP request to handler.
      *
@@ -37,7 +37,7 @@ class Translates implements \App\Controller
     {
         return [
             'toRender' => $this->TranslatesRepo
-                ->getAllTranslates($this->CurrentLang)
+                ->getTranslatesByLang($this->CurrentLang)
         ];
     }
 }

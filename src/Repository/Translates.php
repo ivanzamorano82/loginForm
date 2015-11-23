@@ -28,20 +28,60 @@ class Translates
     }
 
     /**
-     * Gets all translates of given language.
+     * Get all languages.
      *
-     * @param int $lang   Code of required language.
+     * @return \PDOStatement
+     */
+    public function getLangs()
+    {
+        $sql = "SELECT * FROM `".DB::TBL_LANGS."`";
+        $st = $this->MySQL->getConn()->prepare($sql);
+        $st->execute();
+        return $st->fetchAll();
+    }
+
+    /**
+     * Gets all translates for all languages.
      *
      * @return array   All translates in required language.
      */
-    public function getAllTranslates($lang)
+    public function getAllTranslates()
     {
-        $sql = "SELECT `w`.`key`,`t`.`value` ".
-               "FROM `".DB::TBL_WORDS."` `w` ".
-               "INNER JOIN `".DB::TBL_TRANSLATES."` `t` ".
-                     "ON `w`.`id`=`t`.`word_id` ".
-               "INNER JOIN `".DB::TBL_LANGS."` `l` ".
-                     "ON `t`.`lang_id`=`l`.`id` AND `l`.`code`=?";
+        $languages = $this->getLangs();
+        $out = [];
+        foreach ($languages as $lang) {
+            foreach ($this->getTranslatesByLang($lang['code'])
+                as $key => $val
+            ) {
+                $out[] = [
+                    'code' => $lang['code'],
+                    'key' => $key,
+                    'val' => $val,
+                ];
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Gets all translates of given language.
+     *
+     * @param int $lang         Code of required language.
+     *
+     * @return array   All translates in required language.
+     */
+    public function getTranslatesByLang($lang)
+    {
+        $sql = "SELECT t1.id,t1.`key`,t2.`value` FROM words t1 ".
+               "LEFT JOIN ".
+                    "(SELECT w.id, w.`key`,t.`value` ".
+                    "FROM words w  ".
+                    "INNER JOIN translates t ON w.id = t.word_id ".
+                    "INNER JOIN langs l ON t.lang_id = l.id ".
+                                      "AND l.`code`=? ".
+                    "ORDER BY w.`key` ".
+                    ") as t2 ".
+               "ON t1.id = t2.id";
         $st = $this->MySQL->getConn()->prepare($sql);
         $st->execute([$lang]);
         $out = [];

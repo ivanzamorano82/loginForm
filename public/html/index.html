@@ -4,22 +4,27 @@
     <meta charset="UTF-8">
     <title>Главная страница</title>
     <!-- including of style -->
+    <link rel="stylesheet" href="/../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/../styles/css/common.css" type="text/css"/>
     <!-- including of favicon -->
     <link rel="shortcut icon" href="/../images/favicon.png" type="image/x-icon">
     <!-- including of scripts -->
-    <script type="text/javascript" src="/../bower_components/angular/angular.min.js"></script>
+    <script src="/../bower_components/angular/angular.min.js"></script>
     <script src="/../bower_components/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="/../scripts/js/common.js"></script>
+    <!--<script type="text/javascript" src="/../scripts/js/common.js"></script>-->
     <script src="/../scripts/js/app.js"></script>
-    <script src="/../scripts/js/main.js"></script>
+    <script src="/../scripts/js/controllers.js"></script>
 </head>
-<body>
+<body ng-controller="CommonCtrl">
 <header>
     <ul class="menu">
-        <li><a href="">Авторизация</a></li>
-        <li><a href="">Регистрация</a></li>
-        <li><a href="">Редактирование переводов</a></li>
+      <li><a href="#/login">Авторизация</a></li>
+      <li><a href="#/signUp">Регистрация</a></li>
+      <li>
+        <a href="#/translatesEdit">
+          {{ translates.title_translates_editing }}
+        </a>
+      </li>
     </ul>
 </header>
     <div ng-view></div>

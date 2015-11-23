@@ -8,9 +8,10 @@ var authControllers = angular.module('authControllers', []);
 
 authControllers.controller('LoginController', ['$scope', '$http',
     function($scope, $http) {
-        $http.get('/api/get.translates').success(function(data) {
-            $scope.translates = data;
-        });
+        console.log('lc controller...');
+        //$http.get('/api/get.translates').success(function(data) {
+        //    $scope.translates = data;
+        //});
 
         //$scope.$watch("login_", function (newValue) {
         //    var login = $scope.loginForm.login,
@@ -30,22 +31,39 @@ authControllers.controller('LoginController', ['$scope', '$http',
         $scope.errorMessage = 'Обязательное поле для заполнения.';
 
         $scope.fio = '44444';
-        //console.log($scope.signUp.fio);
 
-        //jQuery('#signUp').formValidate({
-        //    'login': ['required', 'alphaNumeric(en)', 'length(100)'],
-        //    'password': ['range(6,20)'],
-        //    'type': ['required']
-        //});
+        $scope.doLogin = function() {
+            console.log('login');
+        };
+    }
+]);
 
-        //$http.get('/api/signup').success(function(data) {
-        //    console.log(data);
-        //});
-
+authControllers.controller('SignUpController', ['$scope', '$http',
+    function($scope, $http) {
+        console.log('su controller...');
         $scope.doSignUp = function() {
             console.log('submit');
         };
+    }
+]);
 
-        $scope.xxx = 'xxxxxx';
+authControllers.controller('TranslatesEditController', ['$scope', '$http',
+    function($scope, $http) {
+        console.log('te controller...');
+        $http.get('/api/get.allTranslates').success(function(data) {
+            $scope.words = data;
+        });
+        $http.get('/api/get.languages').success(function(data) {
+            $scope.languages = data;
+        });
+        $scope.curLang = {code:'ru'};
+    }
+]);
+
+authControllers.controller('CommonCtrl', ['$scope', '$http',
+    function($scope, $http) {
+        $http.get('/api/get.currentTranslates').success(function(data) {
+            $scope.translates = data;
+        });
     }
 ]);

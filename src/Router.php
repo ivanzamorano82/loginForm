@@ -16,7 +16,17 @@ class Router
      * @var array[]
      */
     protected $pages = [  // in alphabetic order
-        'api/get.translates' => [
+        'api/get.allTranslates' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'api/get.currentTranslates' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+        'api/get.languages' => [
             'api' => true,
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
