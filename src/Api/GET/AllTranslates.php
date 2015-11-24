@@ -36,8 +36,7 @@ class AllTranslates implements \App\Controller
     public function run($req)
     {
         return [
-            'toRender' => $this->TranslatesRepo
-                ->getAllTranslates($this->CurrentLang)
+            'toRender' => $this->TranslatesRepo->getAllTranslates()
         ];
     }
 }

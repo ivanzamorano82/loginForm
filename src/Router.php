@@ -46,6 +46,12 @@ class Router
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
         ],
+        'api/put.setTranslate' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+            'auth' => Page::AUTH_YES,
+        ],
+
         'index' => ['auth' => Page::AUTH_YES],
         'profile' => [],
         'logout' => [],

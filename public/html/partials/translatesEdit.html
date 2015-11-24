@@ -1,13 +1,14 @@
-<div class="block-center" ng-controller="TranslatesEditController">
+<div class="block-center">
     <div class="canvas">
       <h3>{{ translates.title_translates_editing }}</h3>
       <label>Текущий язык:</label>
-      <select ng-model="curLang.code">
-        <option value="{{ lang.code }}"
-                ng-repeat="lang in languages">{{ lang.title }}</option>
-      </select>
-      <form>
-        <table class="table table-bordered table-striped table-hover ">
+      <form ng-submit="doEditTranslates()" name="ET">
+        <select class="form-control" ng-model="curLang.langCode">
+          <option value="{{ lang.code }}"
+                  ng-repeat="lang in languages">{{ lang.title }}</option>
+        </select>
+        <button class="btn" type="submit">Сохранить</button>
+        <table class="table table-bordered table-striped table-hover">
           <thead>
             <tr>
               <th>Язык</th>
@@ -16,10 +17,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="word in words | filter:curLang">
-              <td>{{ word.code }}</td>
-              <td contenteditable="true">{{ word.key }}</td>
-              <td contenteditable="true">{{ word.val }}</td>
+            <tr ng-repeat="word in filteredWords = (words | filter:curLang) track by $index">
+              <td>{{ word.langCode }}</td>
+              <td>
+                <input ng-model="word.key" ng-model-options="{ debounce: 1500 }"
+                       value="{{ word.key }}">
+              </td>
+              <td>
+                <textarea ng-model="word.val">{{ word.val }}</textarea>
+              </td>
             </tr>
           </tbody>
         </table>

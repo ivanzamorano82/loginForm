@@ -8,30 +8,6 @@ var authControllers = angular.module('authControllers', []);
 
 authControllers.controller('LoginController', ['$scope', '$http',
     function($scope, $http) {
-        console.log('lc controller...');
-        //$http.get('/api/get.translates').success(function(data) {
-        //    $scope.translates = data;
-        //});
-
-        //$scope.$watch("login_", function (newValue) {
-        //    var login = $scope.loginForm.login,
-        //        errors = [];
-        //
-        //    if (login.$error.required) {
-        //        errors.push('Обязательное поле для заполнения.');
-        //        $scope.errorMessage = 'Обязательное поле для заполнения';
-        //    }
-        //
-        //    if (login.$error.pattern) {
-        //        errors.push('Поле должно содержать только буквы [a-z]');
-        //    }
-        //    $scope.errorMessage = errors.join('. ')
-        //});
-
-        $scope.errorMessage = 'Обязательное поле для заполнения.';
-
-        $scope.fio = '44444';
-
         $scope.doLogin = function() {
             console.log('login');
         };
@@ -40,7 +16,6 @@ authControllers.controller('LoginController', ['$scope', '$http',
 
 authControllers.controller('SignUpController', ['$scope', '$http',
     function($scope, $http) {
-        console.log('su controller...');
         $scope.doSignUp = function() {
             console.log('submit');
         };
@@ -49,14 +24,31 @@ authControllers.controller('SignUpController', ['$scope', '$http',
 
 authControllers.controller('TranslatesEditController', ['$scope', '$http',
     function($scope, $http) {
-        console.log('te controller...');
         $http.get('/api/get.allTranslates').success(function(data) {
             $scope.words = data;
+            angular.forEach($scope.words, function(value, index) {
+                $scope.$watch('words['+index+'].key', function(newVal, oldVal) {
+                    if (newVal != oldVal) {
+                        console.log(newVal, oldVal, value, index);
+                        value.oldKey = oldVal;
+                        $http.put('/api/put.setTranslate', value)
+                            .success(function(data) {
+                                console.log(data)
+                            })
+                    }
+                });
+            });
         });
         $http.get('/api/get.languages').success(function(data) {
             $scope.languages = data;
         });
-        $scope.curLang = {code:'ru'};
+        $scope.curLang = {langCode:'ru'};
+        $scope.doEditTranslates = function() {
+            console.log($scope.filteredWords);
+        };
+
+
+
     }
 ]);
 

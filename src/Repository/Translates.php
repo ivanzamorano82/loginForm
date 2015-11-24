@@ -54,7 +54,8 @@ class Translates
                 as $key => $val
             ) {
                 $out[] = [
-                    'code' => $lang['code'],
+                    'langCode' => $lang['code'],
+                    'langId' => $lang['id'],
                     'key' => $key,
                     'val' => $val,
                 ];
@@ -66,21 +67,20 @@ class Translates
     /**
      * Gets all translates of given language.
      *
-     * @param int $lang         Code of required language.
+     * @param int $lang   Code of required language.
      *
      * @return array   All translates in required language.
      */
     public function getTranslatesByLang($lang)
     {
-        $sql = "SELECT t1.id,t1.`key`,t2.`value` FROM words t1 ".
+        $sql = "SELECT `t1`.`id`,`t1`.`key`,t2.`value` FROM words t1 ".
                "LEFT JOIN ".
                     "(SELECT w.id, w.`key`,t.`value` ".
                     "FROM words w  ".
                     "INNER JOIN translates t ON w.id = t.word_id ".
                     "INNER JOIN langs l ON t.lang_id = l.id ".
                                       "AND l.`code`=? ".
-                    "ORDER BY w.`key` ".
-                    ") as t2 ".
+                    "ORDER BY w.`key`) as t2 ".
                "ON t1.id = t2.id";
         $st = $this->MySQL->getConn()->prepare($sql);
         $st->execute([$lang]);
@@ -144,5 +144,13 @@ class Translates
 
         }
         return $out;
+    }
+
+    public function updateWordTranslate($oldKey, $newKey){
+        $sql = "UPDATE `".DB::TBL_WORDS."` ".
+               "SET `key`=? ".
+               "WHERE `key`=?";
+        $st = $this->MySQL->getConn()->prepare($sql);
+        $st->execute([$newKey, $oldKey]);
     }
 }
