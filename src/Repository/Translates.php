@@ -50,14 +50,15 @@ class Translates
         $languages = $this->getLangs();
         $out = [];
         foreach ($languages as $lang) {
-            foreach ($this->getTranslatesByLang($lang['code'])
-                as $key => $val
+            foreach ($this->getTranslatesByLang($lang['code'], true)
+                as $id => $val
             ) {
                 $out[] = [
                     'langCode' => $lang['code'],
                     'langId' => $lang['id'],
-                    'key' => $key,
-                    'val' => $val,
+                    'id' => $id,
+                    'key' => $val['key'],
+                    'val' => $val['val'],
                 ];
             }
         }
@@ -68,10 +69,11 @@ class Translates
      * Gets all translates of given language.
      *
      * @param int $lang   Code of required language.
+     * @param bool $full  For getting all fields of request if true.
      *
      * @return array   All translates in required language.
      */
-    public function getTranslatesByLang($lang)
+    public function getTranslatesByLang($lang, $full = false)
     {
         $sql = "SELECT `t1`.`id`,`t1`.`key`,t2.`value` FROM words t1 ".
                "LEFT JOIN ".
@@ -86,7 +88,15 @@ class Translates
         $st->execute([$lang]);
         $out = [];
         while ($r = $st->fetch()) {
-            $out[$r['key']] = $r['value'];
+            if ($full) {
+                $out[$r['id']] = [
+                    'id' => $r['id'],
+                    'key' => $r['key'],
+                    'val' => $r['value'],
+                ];
+            } else {
+                $out[$r['key']] = $r['value'];
+            }
         }
         return $out;
     }
@@ -146,11 +156,24 @@ class Translates
         return $out;
     }
 
-    public function updateWordTranslate($oldKey, $newKey){
+    public function updateWord($id, $newKey){
         $sql = "UPDATE `".DB::TBL_WORDS."` ".
                "SET `key`=? ".
-               "WHERE `key`=?";
+               "WHERE `id`=?";
         $st = $this->MySQL->getConn()->prepare($sql);
-        $st->execute([$newKey, $oldKey]);
+        $st->execute([$newKey, $id]);
+    }
+
+    public function updateTranslate($wordId, $langId, $newVal)
+    {
+        $sql = "INSERT INTO `".DB::TBL_TRANSLATES."` (`word_id`,`lang_id`,`value`)".
+               "VALUES(?,?,?)".
+               "ON DUPLICATE KEY UPDATE".
+                  "`value` = VALUES(`value`)";
+        //$sql = "UPDATE `".DB::TBL_TRANSLATES."` ".
+        //       "SET `value`=? ".
+        //       "WHERE `lang_id`=? AND `word_id`=?";
+        $st = $this->MySQL->getConn()->prepare($sql);
+        $st->execute([$wordId, $langId, $newVal]);
     }
 }

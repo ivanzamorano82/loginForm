@@ -4,12 +4,9 @@
 
 var authApp = angular.module('authApp', [
     'ngRoute',
-    'authControllers'
+    'authControllers',
+    'authFilter'
 ]);
-
-//authApp.config(function($interpolateProvider){
-//    $interpolateProvider.startSymbol('[[').endSymbol(']]');
-//});
 
 authApp.config(['$routeProvider',
     function($routeProvider) {

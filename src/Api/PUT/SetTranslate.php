@@ -3,6 +3,7 @@
 namespace App\Api\PUT;
 
 use \App\Exception\Redirect;
+use App\Exception\UsePage;
 use \App\Inject;
 use \App\Model;
 use \App\Util;
@@ -38,13 +39,40 @@ class SetTranslate implements \App\Controller
      * @throws Redirect   Redirect to profile page if authentication
      *                    was successful.
      *
+     * @throws UsePage
+     *
      * @return array   Parameters for page template rendering.
      */
     public function run($req)
     {
-        $this->TranslatesRepo->updateWordTranslate(
-            $req->POST->String('oldKey'), $req->POST->String('key')
+        $action = $req->POST->String('action');
+        if ($action && method_exists(__CLASS__, $action)) {
+            $this->$action($req);
+        } else {
+            throw new UsePage(404);
+        }
+
+        return $this->success();
+    }
+
+    /**
+     * @param \App\Request $req  HTTP request to handler.
+     */
+    public function saveKey($req)
+    {
+        $this->TranslatesRepo->updateWord(
+            $req->POST->Int('id'), $req->POST->String('key')
         );
-        return $this->success($req->POST->getAll());
+    }
+
+    /**
+     * @param \App\Request $req  HTTP request to handler.
+     */
+    public function saveVal($req)
+    {
+        $this->TranslatesRepo->updateTranslate(
+            $req->POST->Int('id'), $req->POST->Int('langId'),
+            $req->POST->String('val')
+        );
     }
 }

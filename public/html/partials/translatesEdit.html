@@ -7,7 +7,6 @@
           <option value="{{ lang.code }}"
                   ng-repeat="lang in languages">{{ lang.title }}</option>
         </select>
-        <button class="btn" type="submit">Сохранить</button>
         <table class="table table-bordered table-striped table-hover">
           <thead>
             <tr>
@@ -17,18 +16,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="word in filteredWords = (words | filter:curLang) track by $index">
+            <tr ng-repeat="word in filteredWords = (words | filter:curLang) track by word.id"
+                ng-class="{ danger : word.dirty, success : word.saved }">
               <td>{{ word.langCode }}</td>
               <td>
                 <input ng-model="word.key" ng-model-options="{ debounce: 1500 }"
                        value="{{ word.key }}">
               </td>
               <td>
-                <textarea ng-model="word.val">{{ word.val }}</textarea>
+                <textarea ng-model="word.val" class="{{ word.color }}"
+                          ng-model-options="{ debounce: 1500 }">{{ word.val }}</textarea>
               </td>
             </tr>
           </tbody>
         </table>
+        <button class="save" type="submit">
+          <span>{{ translates.button_save }}</span>
+        </button>
       </form>
     </div>
 </div>

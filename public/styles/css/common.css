@@ -341,3 +341,9 @@ header {
     text-align: center;
     padding: 50px 0;
 }
+.notSaved {
+    background-color: #FFCAC5;
+}
+.saved {
+    background-color: #EEFBEE;
+}
