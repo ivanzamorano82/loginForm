@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 16 2015 г., 12:15
+-- Время создания: Ноя 25 2015 г., 09:21
 -- Версия сервера: 5.6.24
 -- Версия PHP: 5.6.6
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `translates` (
 --
 
 INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
-(1, 2, 'Вхід'),
+(1, 2, 'Вхід_'),
 (1, 3, 'ФІО'),
 (1, 4, 'Телефон'),
 (1, 5, 'Email'),
@@ -87,7 +87,7 @@ INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
 (1, 9, 'Зареєструватися'),
 (1, 10, 'Логін'),
 (1, 11, 'Мова інтерфейсу'),
-(1, 12, 'Увійти'),
+(1, 12, 'Увійти***'),
 (1, 13, 'Ви ввели невірні дані'),
 (1, 14, 'Фото'),
 (1, 15, 'Профіль користувача'),
@@ -105,7 +105,7 @@ INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
 (2, 9, 'Зарегестрироваться'),
 (2, 10, 'Логин'),
 (2, 11, 'Язык интерфейса'),
-(2, 12, 'Войти'),
+(2, 12, 'Войти!!!'),
 (2, 13, 'Вы ввели неверные данные'),
 (2, 14, 'Фото (перетащить)'),
 (2, 15, 'Профиль пользователя'),
@@ -114,7 +114,7 @@ INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
 (2, 18, 'Страница авторизации и регистрации'),
 (2, 19, 'Страница профиля пользователя'),
 (2, 20, 'Регистрация'),
-(2, 21, 'Обязательное поле для заполнения++'),
+(2, 21, 'Обязательное поле для заполнения.'),
 (2, 22, 'Поле должно содержать только {"0"} буквы ++'),
 (2, 23, 'Недопустимое поле++'),
 (2, 24, 'Неизвестный валидатор++'),
@@ -126,6 +126,9 @@ INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
 (2, 30, 'Вы ввели несуществующий логин'),
 (2, 35, 'Неверный пароль'),
 (2, 36, 'Вы ввели несуществующий email'),
+(2, 37, 'Редактирование переводов!!!+++'),
+(2, 38, 'Сохранить!!!'),
+(2, 39, 'Авторизация'),
 (3, 2, 'Login'),
 (3, 3, 'Name'),
 (3, 4, 'Phone'),
@@ -143,7 +146,8 @@ INSERT INTO `translates` (`lang_id`, `word_id`, `value`) VALUES
 (3, 17, 'Drag and drop image into this zone for download'),
 (3, 18, 'Registration and Authorization pages'),
 (3, 19, 'The User profile page'),
-(3, 20, 'Signup');
+(3, 20, 'Signup'),
+(3, 29, 'Restore');
 
 -- --------------------------------------------------------
 
@@ -168,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `fio`, `login`, `loginHash`, `phone`, `email`, `emailHash`, `pass`, `photo`) VALUES
-(1, 'XP7NuVxgRyGqrahJvb/v+HszFgDnv8DpERwc7fqwoNbaU08GbSQ=', '+ANuf70=', '016f2006ebe2f49da9bef6c9b61424f7', 'p1cvI73iprW4TwS0OlxyHfA=', '+ANuf72Q+/q4U0fw', '453840716f98bb76130b93b55e08617d', '$2y$12$X1nNUTIxiJC.YXSsW05w6ezrH0p83Wa1GD05U4TbM76ZmFL0FLpP6', '5649853006ab8.png'),
+(1, 'XP7NuVxgRyGqrahJvb/v+HszFgDnv8DpERwc7fqwoNbaU08GbSQ=', '+ANuf70=', '016f2006ebe2f49da9bef6c9b61424f7', 'p1cvI73iprW4TwS0OlxyHfA=', '+ANuf72Q+/q4U0fw', '453840716f98bb76130b93b55e08617d', '$2y$12$XmP/YsPGRMHSA3XlZc7bPurbjUmu45rRs.KUftoFR3zD5ns3h4u2W', '5649853006ab8.png'),
 (2, '4JuksmXJyQCVqY8wW2o=', 'RGwHVoY=', '7b867e6a00148d2069330f4047e0360a', '', 'RGwHVoYIdd53PCjh', '888df76e0279b617383be0cfd98c045a', '$2y$12$14BpKIDNhasogPG76DGzP.aEfraC6SGektAlxij8dUeWZ.qEJPIJC', '5649b564a5943.png');
 
 -- --------------------------------------------------------
@@ -180,7 +184,7 @@ INSERT INTO `users` (`id`, `fio`, `login`, `loginHash`, `phone`, `email`, `email
 CREATE TABLE IF NOT EXISTS `words` (
 `id` int(10) unsigned NOT NULL,
   `key` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `words`
@@ -190,6 +194,7 @@ INSERT INTO `words` (`id`, `key`) VALUES
 (12, 'button_login'),
 (9, 'button_registration'),
 (29, 'button_restore'),
+(38, 'button_save'),
 (14, 'drag_drop'),
 (22, 'error_alphabet'),
 (26, 'error_availableEmail'),
@@ -208,6 +213,7 @@ INSERT INTO `words` (`id`, `key`) VALUES
 (6, 'form_pass'),
 (4, 'form_phone'),
 (8, 'form_repeat_pass'),
+(39, 'link_authorization'),
 (27, 'link_back'),
 (18, 'meta_title_index'),
 (19, 'meta_title_profile'),
@@ -216,7 +222,8 @@ INSERT INTO `words` (`id`, `key`) VALUES
 (28, 'text_restore'),
 (11, 'title_lang_of_interface'),
 (2, 'title_login'),
-(20, 'title_registration');
+(20, 'title_registration'),
+(37, 'title_translates_editing');
 
 --
 -- Индексы сохранённых таблиц
@@ -275,7 +282,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT для таблицы `words`
 --
 ALTER TABLE `words`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

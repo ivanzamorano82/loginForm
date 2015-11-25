@@ -2,8 +2,8 @@
 
 var authControllers = angular.module('authControllers', []);
 
-authControllers.controller('LoginController', ['$scope', '$http',
-    function($scope, $http) {
+authControllers.controller('LoginController', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
         $scope.serverErrors = {login:'', pass:''};
 
         $scope.doLogin = function() {
@@ -25,9 +25,11 @@ authControllers.controller('LoginController', ['$scope', '$http',
                             });
                             $scope.serverErrors[field] = commonErrors.join('. ');
                         });
-                        console.log($scope.serverErrors);
-                        //$scope.serverErrors = data.errors.join();
-                    });
+                }).error(function(response, status) {
+                    if (status === 301 && response.redirectUrl !== undefined) {
+                        $location.path(response.redirectUrl);
+                    }
+                });
             }
         };
     }
@@ -96,6 +98,34 @@ authControllers.controller('CommonCtrl', ['$scope', '$http', 'translates',
                 $scope.translates = newValue;
             }
         }, true);
+    }
+]);
+
+authControllers.controller('ProfileController', ['$scope', '$http', '$location',
+    function($scope, $http, $location) {
+        $http.get('/api/get.checkAuthorization').success(function(data) {
+            $http.get('/api/get.profile').success(function(data) {
+                $scope.user = data.user;
+            });
+
+            $scope.doLogout = function() {
+                $http.post('/api/post.logout', {}).error(
+                    function(response, status) {
+                        if (status === 301
+                            && response.redirectUrl !== undefined
+                        ) {
+                            $location.path(response.redirectUrl);
+                        }
+                    }
+                );
+            };
+
+        }).error(function(response, status) {
+            if (status === 301 && response.redirectUrl !== undefined) {
+                $location.path(response.redirectUrl);
+            }
+        })
+
     }
 ]);
 

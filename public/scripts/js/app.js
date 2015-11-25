@@ -23,6 +23,10 @@ authApp.config(['$routeProvider',
                 templateUrl: 'partials/translatesEdit.html',
                 controller: 'TranslatesEditController'
             }).
+            when('/profile', {
+                templateUrl: 'partials/profile.html',
+                controller: 'ProfileController'
+            }).
             otherwise({
                 redirectTo: '/login'
             });

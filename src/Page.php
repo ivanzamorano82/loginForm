@@ -140,8 +140,13 @@ class Page
                 $this->initCurrentUser();
                 if ($this->auth === self::AUTH_REQUIRED) {
                     if ($this->CurrentUser === null) {
-                        header('Location: '.Redirect::LOGIN_PAGE);
-                        $this->render = self::AS_NOTHING;
+                        if ($this->render === self::AS_HTML) {
+                            header('Location: '.Redirect::LOGIN_PAGE);
+                            $this->render = self::AS_NOTHING;
+                        } elseif ($this->render === self::AS_JSON) {
+                            $this->status = 301;
+                            $this->toRender['redirectUrl'] = Redirect::LOGIN_PAGE;
+                        }
                         return $this;
                     }
                 }

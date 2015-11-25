@@ -21,6 +21,10 @@ class Router
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
         ],
+        'api/get.checkAuthorization' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+        ],
         'api/get.currentTranslates' => [
             'api' => true,
             'render' => Page::AS_JSON,
@@ -31,10 +35,18 @@ class Router
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
         ],
+        'api/get.profile' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
+        ],
         'api/post.login' => [
             'api' => true,
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
+        ],
+        'api/post.logout' => [
+            'api' => true,
+            'render' => Page::AS_JSON,
         ],
         'api/post.restorePass' => [
             'api' => true,
@@ -51,7 +63,6 @@ class Router
             'render' => Page::AS_JSON,
             'auth' => Page::AUTH_YES,
         ],
-
         'index' => ['auth' => Page::AUTH_YES],
         'profile' => [],
         'logout' => [],

@@ -1,0 +1,29 @@
+<div class="block-center">
+  <div class="form-wrapp">
+    <div class="tabs">
+      <h1>{{ translates.profile_title }} <span>{{ user.login }}</span></h1>
+    </div>
+    <div class="profile">
+      <div class="form_block" id="photo">
+        <div class="photo-wrapper">
+          <img class="vertical-center" ng-src="{{ user.photo }}">
+        </div>
+      </div>
+      <div class="form_block dl">
+        <dl>
+          <dt>{{ translates.form_name }}:</dt>
+          <dd>{{ user.fio }}</dd>
+          <dt>{{ translates.form_login }}:</dt>
+          <dd>{{ user.login }}</dd>
+          <dt>{{ translates.form_phone }}:</dt>
+          <dd>{{ user.phone }}</dd>
+          <dt>{{ translates.form_email }}:</dt>
+          <dd>{{ user.email }}</dd>
+        </dl>
+      </div>
+      <form id="logout" method="post" ng-submit="doLogout()">
+        <input type="submit" value="{{ translates.profile_logout }}">
+      </form>
+    </div>
+  </div>
+</div>

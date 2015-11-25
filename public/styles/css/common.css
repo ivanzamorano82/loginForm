@@ -165,7 +165,7 @@ form button.saving span:after {
 
 .tabs {
     position: relative;
-    top: 10px;
+    top: 19px;
 }
 .tabs a, .tabs h1 {
     background: rgba(251,251,250, 0.3);

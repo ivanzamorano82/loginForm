@@ -12,7 +12,7 @@ class Redirect extends \Exception
     /**
      * Alias of authorization page.
      */
-    const LOGIN_PAGE = '/index';
+    const LOGIN_PAGE = '/login';
 
     /**
      * Alias of root page in profile panel.

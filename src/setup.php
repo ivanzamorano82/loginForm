@@ -23,6 +23,6 @@ define('DOWNLOAD_FOLDER', PROJECT_ROOT.'/public/downloads/');
 /** Absolute path to folder for downloaded files for registered users. */
 define('USERS_FOLDER', DOWNLOAD_FOLDER.'/users/');
 /** Relative url to downloaded  images */
-define('IMAGE_URL', 'downloads/');
+define('IMAGE_URL', '/downloads/');
 /** Relative url to downloaded  user's images */
 define('USER_URL', IMAGE_URL.'users/');
