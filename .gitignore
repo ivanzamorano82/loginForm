@@ -5,3 +5,4 @@
 temp
 npm-debug.log
 public/bower_components
+*.zip
